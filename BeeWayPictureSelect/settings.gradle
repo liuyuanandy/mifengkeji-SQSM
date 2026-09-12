@@ -3,4 +3,3 @@ def opencvsdk='../'
 include ':opencv'
 project(':opencv').projectDir = new File(opencvsdk + '/sdk')
 include ':myaars:opencv-release'
-include ':test16k'
