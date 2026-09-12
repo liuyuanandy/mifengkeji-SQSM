@@ -126,11 +126,11 @@ public class CutPictureActivity extends Activity {
         p_frame_height.gravity = Gravity.CENTER_HORIZONTAL;
         frame_height.setLayoutParams(p_frame_height);
 
-        FrameLayout.LayoutParams p_tv_width= new FrameLayout.LayoutParams(Layout.getScale(80), Layout.getScale(34));
+        FrameLayout.LayoutParams p_tv_width= new FrameLayout.LayoutParams(Layout.getScale(110), Layout.getScale(34));
         p_tv_width.setMargins(Layout.getScale(14),0,0 , 0 );
         tv_with.setLayoutParams(p_tv_width);
         Layout.setTextViewSize(tv_with,15 );
-        FrameLayout.LayoutParams p_tv_height= new FrameLayout.LayoutParams(Layout.getScale(80), Layout.getScale(34));
+        FrameLayout.LayoutParams p_tv_height= new FrameLayout.LayoutParams(Layout.getScale(110), Layout.getScale(34));
         p_tv_height.setMargins(Layout.getScale(14),0,0 , 0 );
         tv_height.setLayoutParams(p_tv_height);
         Layout.setTextViewSize(tv_height,15 );
@@ -145,12 +145,12 @@ public class CutPictureActivity extends Activity {
         tv_height_unit.setLayoutParams(p_tv_height_unit);
         Layout.setTextViewSize(tv_height_unit,15 );
 
-        FrameLayout.LayoutParams p_et_width= new FrameLayout.LayoutParams(Layout.getScale(200), Layout.getScale(34));
-        p_et_width.setMargins(Layout.getScale(96),0,0 , 0 );
+        FrameLayout.LayoutParams p_et_width= new FrameLayout.LayoutParams(Layout.getScale(150), Layout.getScale(34));
+        p_et_width.setMargins(Layout.getScale(126),0,0 , 0 );
         et_width.setLayoutParams(p_et_width);
         Layout.setTextViewSize(et_width, 15);
-        FrameLayout.LayoutParams p_et_height= new FrameLayout.LayoutParams(Layout.getScale(200), Layout.getScale(34));
-        p_et_height.setMargins(Layout.getScale(96),0,0 , 0 );
+        FrameLayout.LayoutParams p_et_height= new FrameLayout.LayoutParams(Layout.getScale(150), Layout.getScale(34));
+        p_et_height.setMargins(Layout.getScale(126),0,0 , 0 );
         et_height.setLayoutParams(p_et_height);
         Layout.setTextViewSize(et_height, 15);
 
@@ -238,7 +238,7 @@ public class CutPictureActivity extends Activity {
                             intent.setData(uri);
                             sendBroadcast(intent);
                         }
-                        Toast.makeText(CutPictureActivity.this, "保存成功",Toast.LENGTH_LONG ).show();
+                        Toast.makeText(CutPictureActivity.this, getResources().getString(R.string.saved),Toast.LENGTH_LONG ).show();
                     }
                     try {
                         JSONArray array = new JSONArray();

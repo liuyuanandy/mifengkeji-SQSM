@@ -16,31 +16,13 @@
         android:id = "@+id/iv_ar_fs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
         android:scaleType="fitXY"
         />
     <ImageView
         android:id = "@+id/iv_ar_kt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
         android:scaleType="fitXY"
-        />
-    <View
-        android:id ="@+id/v_cover"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000"></View>
-    <View
-        android:id = "@+id/v_top"
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:background="#000000"/>
-    <View
-        android:id = "@+id/v_bottom"
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:background="#000000"
         />
     <View
         android:id = "@+id/v_left"

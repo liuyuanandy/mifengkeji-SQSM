@@ -70,7 +70,7 @@ public class MirroPictureActivity extends Activity {
     private IWXAPI api;
     private Handler handler;
     private boolean isShare;
-    private int shareType;// 1 微信朋友圈 2 微信好友
+    private int shareType;// 1 微信朋友圈 2 微信好友 3 qq
     private String code;
     private String specs;
     private String price;
@@ -236,7 +236,7 @@ public class MirroPictureActivity extends Activity {
                         intent.setData(uri);
                         sendBroadcast(intent);
                     }
-                    Toast.makeText(MirroPictureActivity.this, "保存成功",Toast.LENGTH_LONG ).show();
+                    Toast.makeText(MirroPictureActivity.this, R.string.saved,Toast.LENGTH_LONG ).show();
                 }
                 if(v.getId()== R.id.tv_preview){
                     cutView.preViewClick();
@@ -359,6 +359,7 @@ public class MirroPictureActivity extends Activity {
                         Log.e("---------------->","share type 4 = "+shareType);
                         if(shareType==1||shareType==2){
                             shareToWeixin(shareType,picture ,code ,specs ,price , remark);
+                        }else if(shareType==3){
                         }
                     }
                     @Override

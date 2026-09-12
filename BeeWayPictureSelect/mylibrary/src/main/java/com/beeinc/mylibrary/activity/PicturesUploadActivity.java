@@ -82,6 +82,7 @@ public class PicturesUploadActivity extends FragmentActivity {
     private TextView tv_return, tv_import;
     //中间图片区部分
     private ImageView iv_picture;
+    private TextView tv_rotate;
     private ImageView iv_rotate;
     //底部区域
     private FrameLayout frame_bottom;
@@ -301,6 +302,8 @@ public class PicturesUploadActivity extends FragmentActivity {
         //中间图片
         iv_picture = findViewById(R.id.iv_picture);
         iv_rotate = findViewById(R.id.iv_rotate);
+        tv_rotate = findViewById(R.id.tv_rotate);
+
         frame_auto = findViewById(R.id.frame_auto);
         //底部
         frame_bottom = findViewById(R.id.frame_bottom);
@@ -514,6 +517,12 @@ public class PicturesUploadActivity extends FragmentActivity {
         p_rotate.gravity = Gravity.BOTTOM | Gravity.RIGHT;
         p_rotate.setMargins(0, 0, Layout.getScale(25), Layout.getScale(25));
         iv_rotate.setLayoutParams(p_rotate);
+
+        FrameLayout.LayoutParams p_rotate_tv = new FrameLayout.LayoutParams(Layout.getScale(50), Layout.getScale(24));
+        p_rotate_tv.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        p_rotate_tv.setMargins(0, Layout.getScale(30), Layout.getScale(32), Layout.getScale(33));
+        tv_rotate.setLayoutParams(p_rotate_tv);
+        Layout.setTextViewSize(tv_rotate,13);
 //        mBitmap = FileUtil.decodeFile(imagePath,3000);
 //        iv_picture.setImageBitmap(mBitmap);
 
@@ -605,7 +614,6 @@ public class PicturesUploadActivity extends FragmentActivity {
         scaleTextViews.add(tv_auto_success_text);
         scaleTextViews.add(tv_auto_success_quit);
         scaleTextViews.add(tv_auto_success_ok);
-        scaleTextViews.add(tv_auto_success_text);
 
         //自动修图控件-失败
         scaleViews.add(v_auto_fail_back);
@@ -939,7 +947,7 @@ public class PicturesUploadActivity extends FragmentActivity {
 
     private void rotate() {
         if(currentUploadFile==null){
-            Toast.makeText(this,"请选择图片",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.please_select_an_image),Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -1337,7 +1345,8 @@ public class PicturesUploadActivity extends FragmentActivity {
         filter.addAction("com.beeinc.album.takpicture");
         filter.addAction("com.beeinc.album.takpicture.finish");
         filter.addAction("com.beeinc.album.takpicture.album");
-        BroadcastReceiverRegisterUtil.registerReceiver(this, this.receiver, filter, 2);    }
+        BroadcastReceiverRegisterUtil.registerReceiver(this,receiver, filter,RECEIVER_EXPORTED);
+    }
 
     private void setCurrentUploadFile(UploadFile currentUploadFile){
         this.currentUploadFile = currentUploadFile;
@@ -1471,28 +1480,30 @@ public class PicturesUploadActivity extends FragmentActivity {
     }
     private void showSetInfoDialog(){
         if(currentUploadFile==null){
-            Toast.makeText(this,"请选择图片",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.please_select_an_image),Toast.LENGTH_SHORT).show();
             return;
         }
         int bitmapWidth = mBitmap.getWidth();
         int bitmapHeight = mBitmap.getHeight();
-        int widthSuggest ;
-        int heightSuggest;
+        int width ;
+        int height;
         if(bitmapWidth>bitmapHeight){
-            widthSuggest = maxVertulImageSize;
-            heightSuggest = maxVertulImageSize*bitmapHeight/bitmapWidth;
+            width = maxVertulImageSize;
+            height = maxVertulImageSize*bitmapHeight/bitmapWidth;
         }else{
-            heightSuggest = maxVertulImageSize;
-            widthSuggest = maxVertulImageSize*bitmapWidth/bitmapHeight;
+            height = maxVertulImageSize;
+            width = maxVertulImageSize*bitmapWidth/bitmapHeight;
         }
         int position = getCurrentPostion()+1;
-        currentUploadFile.setNameDefault("石材0"+position);
-        currentUploadFile.setWidthSuggest(widthSuggest);
-        currentUploadFile.setHeightSuggest(heightSuggest);
-
+        currentUploadFile.setNameDefault(getResources().getString(R.string.name_hint)+position);
+        currentUploadFile.setWidthSuggest(width);
+        currentUploadFile.setHeightSuggest(height);
         if(currentUploadFile.getCategory()==null){
             currentUploadFile.setCategory(categoryTypes.get(0));
         }
+        Log.e("----------->","filePath = "+currentUploadFile.getFilePath());
+        Log.e("----------->","width = "+currentUploadFile.getWidth());
+
         inputFixPictureInfoDialog = DialogUtil.showFixImport(PicturesUploadActivity.this,inputFixPictureInfoDialog,currentUploadFile,categoryTypes);
     }
     private void deleteFile() {
@@ -1538,7 +1549,7 @@ public class PicturesUploadActivity extends FragmentActivity {
 
     private void startAlbum() {
         if(num-allUploadFiles.size()==0){
-            Toast.makeText(this, "最多只能选择6张", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.you_can_only_select_up), Toast.LENGTH_SHORT).show();
             return;
         }
         if(mAlbumFiles!=null){
@@ -1555,7 +1566,7 @@ public class PicturesUploadActivity extends FragmentActivity {
                 .checkedList(mAlbumFiles)
                 .widget(
                         Widget.newDarkBuilder(PicturesUploadActivity.this)
-                                .title("选择图片")
+                                .title(this.getResources().getString(com.yanzhenjie.album.R.string.album_album))
                                 .build()
                 )
                 .onResult(new Action<ArrayList<AlbumFile>>() {
@@ -1707,7 +1718,7 @@ public class PicturesUploadActivity extends FragmentActivity {
     //调用自动修图
     private void autoFix() {
         if(allUploadFiles.size()==0){
-            Toast.makeText(this,"请选择图片",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.please_select_an_image),Toast.LENGTH_SHORT).show();
             return;
         }
         isShowAutoHint = false;
@@ -1937,14 +1948,14 @@ public class PicturesUploadActivity extends FragmentActivity {
     private void showManuBottomOption(int manu_option) {
         if (manu_option == fix_type_manu_jiaozhen) {
             frame_manu_option_jiaozhen.setVisibility(View.VISIBLE);
-            tv_jiaozheng_hint.setText("拖动4个圆点,对齐石材边缘!");
+            tv_jiaozheng_hint.setText(getResources().getString(R.string.jiaozheng_hint_1));
 
         } else {
             frame_manu_option_jiaozhen.setVisibility(View.INVISIBLE);
         }
         if (manu_option == fix_type_manu_cut) {
             frame_manu_option_cut.setVisibility(View.VISIBLE);
-            tv_caijian_hint.setText("拖动4条边,选取裁剪区域!");
+            tv_caijian_hint.setText(getResources().getString(R.string.caijian_hint_1));
         } else {
             frame_manu_option_cut.setVisibility(View.INVISIBLE);
         }
@@ -2014,7 +2025,7 @@ public class PicturesUploadActivity extends FragmentActivity {
 
     private void doImport(){
         if(allUploadFiles.size()==0){
-            Toast.makeText(this,"请选择图片",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.please_select_an_image),Toast.LENGTH_SHORT).show();
             return;
         }
         //将布片保存到指定路路径
@@ -2030,23 +2041,14 @@ public class PicturesUploadActivity extends FragmentActivity {
                 int height;
 
                 if(allUploadFiles.get(i).getName()==null||allUploadFiles.equals("")){
-                    name = "石材0"+(1+i);
+                    name = getResources().getString(R.string.name_hint)+"0"+(1+i);
                 }else{
                     name = allUploadFiles.get(i).getName();
                 }
                 if(allUploadFiles.get(i).getWidthSuggest()==0){
                     int[] params = ImageDealUtil.decodeUriWidthAndHeight(this,FileUtil.fileToUri(this,picturePath));
-                    int widthSuggest ;
-                    int heightSuggest;
-                    if(params[0]>params[1]){
-                        widthSuggest = maxVertulImageSize;
-                        heightSuggest = maxVertulImageSize*params[1]/params[0];
-                    }else{
-                        heightSuggest = maxVertulImageSize;
-                        widthSuggest = maxVertulImageSize*params[0]/params[1];
-                    }
-                    allUploadFiles.get(i).setWidthSuggest(widthSuggest);
-                    allUploadFiles.get(i).setHeightSuggest(heightSuggest);
+                    allUploadFiles.get(i).setWidthSuggest(params[0]);
+                    allUploadFiles.get(i).setHeightSuggest(params[1]);
                 }
                 if(allUploadFiles.get(i).getWidth()==0){
                     width = allUploadFiles.get(i).getWidthSuggest();
@@ -2069,7 +2071,6 @@ public class PicturesUploadActivity extends FragmentActivity {
                 json.put("category_id",allUploadFiles.get(i).getCategory().getCategory_id());
                 array.put(json);
             }
-            Log.e("--------------->","array="+array.toString());
             NativeCallUnity.GetMultipleAlbumPathFinish(array.toString());
             finish();
         } catch (JSONException e) {

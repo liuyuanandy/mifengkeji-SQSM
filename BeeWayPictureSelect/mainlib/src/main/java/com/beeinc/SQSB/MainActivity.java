@@ -21,24 +21,16 @@ import com.beeinc.mylibrary.activity.EditInputActivity;
 import com.beeinc.mylibrary.activity.PicturesUploadActivity;
 import com.beeinc.mylibrary.activity.UploadActivity;
 import com.beeinc.mylibrary.activity.VideoPlayActivity;
-import com.beeinc.mylibrary.bean.ARdata;
 import com.beeinc.mylibrary.bean.CategoryType;
-import com.beeinc.mylibrary.bean.ImageUploadData;
-import com.beeinc.mylibrary.bean.ShareQQurlData;
-import com.beeinc.mylibrary.bean.ShareWeixinPicData;
-import com.beeinc.mylibrary.bean.ShareWeixinUrlData;
 import com.beeinc.mylibrary.bean.UploadFile;
-import com.beeinc.mylibrary.dialog.PermissionObjectDialog;
 import com.beeinc.mylibrary.receiver.BeeIncReceiver;
 import com.beeinc.mylibrary.scale.ScreenUtil;
 import com.beeinc.mylibrary.util.BroadcastReceiverRegisterUtil;
 import com.beeinc.mylibrary.util.ConstantData;
-import com.beeinc.mylibrary.util.DialogUtil;
 import com.beeinc.mylibrary.util.FileInfo;
 import com.beeinc.mylibrary.util.FileUtil;
 import com.beeinc.mylibrary.util.ImageDealUtil;
 import com.beeinc.mylibrary.util.LiuhaiScreenJudgeUtil;
-import com.beeinc.mylibrary.util.LocationUtil;
 import com.beeinc.mylibrary.util.MimeType;
 import com.beeinc.mylibrary.util.OpenCVUtil;
 import com.beeinc.mylibrary.util.PermissionUtil;
@@ -55,6 +47,7 @@ import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 import com.yanzhenjie.album.Action;
@@ -80,9 +73,12 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneTimelin
 public class MainActivity extends UnityPlayerActivity implements UnityCallNative {
 
     private ArrayList<AlbumFile> mAlbumFiles;
+    private ArrayList<CategoryType> categoryTypes;
 
     // IWXAPI 是第三方app和微信通信的openApi接口
     private IWXAPI api;
+
+    private int uploadMaxNum;
 
     private BeeIncReceiverMain receiver;
     private boolean isInitAlbum;
@@ -90,20 +86,14 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
     private long lastTime;//上一次点击返回键按钮的时间。
     private String saveDir;//设置相片路径
 
+    private String saveDirUpload;//上传保存路径
     private int imageMaxNumUpload;//上传最大张数
     private boolean isQuit;//是否是退出界面
 
     private GetMultipleAlbumPathInfo multipleAlbumPathInfo;
-    private int getPermissionFor = -1;
-
     private String albumPath;//图片裁剪路径
-    private ImageUploadData imageUploadData;
-    private PermissionObjectDialog permissionObjectDialog;
-    private ShareWeixinUrlData shareWeixinUrlData;
-    private ShareWeixinPicData shareWeixinPicData;
-    private ARdata aRdata;
-    private String qqShareImagePath;
-    private ShareQQurlData shareQQurlData;
+    private int getCameraAndAlbumPermissionFor;//1.多图上传，2.图片裁剪
+
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -129,7 +119,6 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         } else {
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
-        regToWx();
         initReceiver();
         deleteCacheFiles();
     }
@@ -154,6 +143,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
             return true;
         }
     }
+
     private boolean judgeStoragePermission() {
         boolean isStorage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
         boolean isMediaPermission = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS);
@@ -181,12 +171,11 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         }
     }
     private void regToWx() {
-        if (this.api == null) {
+        if (this.judgeStoragePermission() && this.api == null) {
             this.api = WXAPIFactory.createWXAPI(this, "wxee89030b39718286", true);
             this.api.registerApp("wxee89030b39718286");
         }
     }
-
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         setIntent(intent);
@@ -224,19 +213,20 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
     public void TakeJingXiangPhoto(String json){
         jingXiangPai(json);
     }
-
+//    //unity调用 老
+//    public void GetMultipleAlbumPath(String albumpath,int number,String types){
+//        upload(albumpath,number,types);
+//    }
 
     //unity调用
     public void GetAlbumPathFromCut(String albumPath){
         this.albumPath = albumPath;
-        this.getPermissionFor = 2;
+        getCameraAndAlbumPermissionFor = 2;
         File file = new File(albumPath);
         if(!file.exists()||file.isFile()){
             file.mkdirs();
         }
-        if (this.judgeCameraAndStoragePermission()) {
-            this.cutCapture(albumPath);
-        }
+        getPermissionOfCamera();
     }
     //unit调用
     public void ARAction(String kt,String fs){
@@ -244,38 +234,39 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
     }
     //unity调用
     public void  _ShareToWXSession(String WXSharetitle, String WXSharedescription, String imagepath, String WXShareUrl){
-        this.getPermissionFor = 3;
-        this.shareWeixinUrlData = new ShareWeixinUrlData(2, WXSharetitle, WXSharedescription, imagepath, WXShareUrl);
+        regToWx();
         if (this.judgeStoragePermission()) {
-            this.regToWx();
-            this.shareUrlToWeixin(this.shareWeixinUrlData);
+            this.shareUrlToWeixin(2, WXSharetitle, WXSharedescription, imagepath, WXShareUrl);
         }
     }
     //unity调用
     public void  _ShareToWXTimeline(String WXSharetitle, String WXSharedescription, String imagepath, String WXShareUrl){
-        this.getPermissionFor = 3;
-        this.shareWeixinUrlData = new ShareWeixinUrlData(1, WXSharetitle, WXSharedescription, imagepath, WXShareUrl);
+        regToWx();
         if (this.judgeStoragePermission()) {
-            this.regToWx();
-            this.shareUrlToWeixin(this.shareWeixinUrlData);
+            this.shareUrlToWeixin(1, WXSharetitle, WXSharedescription, imagepath, WXShareUrl);
         }
     }
     //unity调用
     public void  _SharePicToWXTimeline(String miniPicPath, String picPath){
-        this.getPermissionFor = 9;
-        this.shareWeixinPicData = new ShareWeixinPicData(1, miniPicPath, picPath);
-        if (this.judgeStoragePermission()) {
-            this.regToWx();
-            this.shareImageToWeixin(1, picPath);
+        regToWx();
+        if (this.api.getWXAppSupportAPI() >= Build.TIMELINE_SUPPORTED_SDK_INT) {
+            if (this.judgeStoragePermission()) {
+                this.shareImageToWeixin(1, picPath);
+            }
+
+        } else {
+            Toast.makeText(this, "当前设备不支持分享", Toast.LENGTH_SHORT).show();
         }
     }
     //unity调用
     public void  _SharePicToWXSession(String miniPicPath, String picPath){
-        this.getPermissionFor = 9;
-        this.shareWeixinPicData = new ShareWeixinPicData(2, miniPicPath, picPath);
-        if (this.judgeStoragePermission()) {
-            this.regToWx();
-            this.shareImageToWeixin(2, picPath);
+        regToWx();
+        if (this.api.getWXAppSupportAPI() >= Build.TIMELINE_SUPPORTED_SDK_INT) {
+            if (this.judgeStoragePermission()) {
+                this.shareImageToWeixin(2, picPath);
+            }
+        } else {
+            Toast.makeText(this, "当前设备不支持分享", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -288,7 +279,6 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         hideSystemUI();
     }
     private void getAlbumPathDuihua(String filePath){
-        this.getPermissionFor = 4;
         if (this.judgeCameraAndStoragePermission()) {
             Intent in = new Intent();
             in.setClass(this, CaptureActivity.class);
@@ -297,48 +287,28 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         }
     }
     private void getAlbumPath(String filePath){
-        this.getPermissionFor = 5;
         if (this.judgeCameraAndStoragePermission()) {
-            this.doGetAlbumPath();
+            ((ImageMultipleWrapper)((ImageMultipleWrapper)((ImageMultipleWrapper)((ImageMultipleWrapper)((ImageMultipleWrapper)((ImageMultipleWrapper)Album.image(this).multipleChoice()).camera(true)).columnCount(2)).selectCount(1).checkedList(this.mAlbumFiles).widget(Widget.newDarkBuilder(this).title(this.getResources().getString(com.yanzhenjie.album.R.string.album_album)).build())).onResult(new Action<ArrayList<AlbumFile>>() {
+                public void onAction(@NonNull ArrayList<AlbumFile> result) {
+                    MainActivity.this.mAlbumFiles = result;
+                    if (result.size() > 0) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                UnityPlayer.UnitySendMessage("UniReciveObj", "GetAlbumPathFinish", ((AlbumFile)MainActivity.this.mAlbumFiles.get(0)).getPath());
+                            }
+                        });
+                    }
+
+                }
+            })).onCancel(new Action<String>() {
+                public void onAction(@NonNull String result) {
+                    Toast.makeText(MainActivity.this, R.string.canceled, Toast.LENGTH_LONG).show();
+                    
+                }
+            })).start();
         }
     }
-    private void doGetAlbumPath() {
-        Album.image(MainActivity.this)
-                .multipleChoice()
-                .camera(true)
-                .columnCount(2)
-                .selectCount(1)
-                .checkedList(mAlbumFiles)
-                .widget(
-                        Widget.newDarkBuilder(MainActivity.this)
-                                .title("选择图片")
-                                .build()
-                )
-                .onResult(new Action<ArrayList<AlbumFile>>() {
-                    @Override
-                    public void onAction(@NonNull ArrayList<AlbumFile> result) {
-                        mAlbumFiles = result;
-                        if(result.size()>0){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    UnityPlayer.UnitySendMessage("UniReciveObj", "GetAlbumPathFinish", ((AlbumFile)MainActivity.this.mAlbumFiles.get(0)).getPath());
-                                }
-                            });
-                        }
-                    }
-                })
-                .onCancel(new Action<String>() {
-                    @Override
-                    public void onAction(@NonNull String result) {
-                        Toast.makeText(MainActivity.this, R.string.canceled, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .start();
-
-    }
     private void jingXiangPai(String json){
-        this.getPermissionFor = 6;
         if (this.judgeCameraAndStoragePermission()) {
             Intent jingxiangpai = new Intent();
             jingxiangpai.putExtra("start_type", 2);
@@ -356,33 +326,40 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         cut_capture.setClass(MainActivity.this, CaptureActivity.class);
         startActivity(cut_capture);
     }
-    private void shareUrlToWeixin(ShareWeixinUrlData shareWeixinUrlData){
-        Log.e("----------->", "api.getWXAppSupportAPI()=" + this.api.getWXAppSupportAPI());
-        Log.e("----------->", "Build.TIMELINE_SUPPORTED_SDK_INT=553779201");
+    private void shareUrlToWeixin(int type,String title,String des,String imagePath,String url){
+        Log.e("----------->","api.getWXAppSupportAPI()="+api.getWXAppSupportAPI());
+        Log.e("----------->","Build.TIMELINE_SUPPORTED_SDK_INT="+Build.TIMELINE_SUPPORTED_SDK_INT);
+
         if (api.getWXAppSupportAPI() >= Build.TIMELINE_SUPPORTED_SDK_INT) {//是否支持发送到朋友圈
-            WXWebpageObject webpage = new WXWebpageObject();
-            webpage.webpageUrl = shareWeixinUrlData.getWXShareUrl();
-            WXMediaMessage msg = new WXMediaMessage(webpage);
-            msg.title = shareWeixinUrlData.getWXSharetitle();
-            msg.description = shareWeixinUrlData.getWXSharedescription();
-            Bitmap bitmap = ImageDealUtil.decodeFile(shareWeixinUrlData.getImagepath(), 4000);
-            Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
-            msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
-            SendMessageToWX.Req req = new SendMessageToWX.Req();
-            req.transaction = String.valueOf(System.currentTimeMillis());
-            req.message = msg;
-            if (shareWeixinUrlData.getType() == 1) {
-                req.scene = 1;
-            }
-
-            if (shareWeixinUrlData.getType() == 2) {
-                req.scene = 0;
-            }
-
-            this.api.sendReq(req);
-        } else {
-            Toast.makeText(this, "当前设备不支持分享", Toast.LENGTH_SHORT).show();
+            //do share
+        }else{//
+            Toast.makeText(this,"当前设备不支持分享",Toast.LENGTH_SHORT ).show();
+            return;
         }
+        //初始化一个WXWebpageObject，填写url
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl =url;
+
+        //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title =title;
+        msg.description =des;
+        Bitmap bitmap = ImageDealUtil.decodeFile(imagePath, ConstantData.maxDecodeImageWidth);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap,150,150,true);
+        msg.thumbData =Util.bmpToByteArray(thumbBmp, true);
+
+        //构造一个Req
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message =msg;
+        if(type==1){
+            req.scene = WXSceneTimeline;
+        }
+        if(type==2){
+            req.scene = WXSceneSession;
+        }
+        //调用api接口，发送数据到微信
+        api.sendReq(req);
     }
     /**
      *
@@ -390,72 +367,66 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
      */
     private void shareImageToWeixin(int type,String picPath){
 
-        Log.e("----------->", "api.getWXAppSupportAPI()=" + this.api.getWXAppSupportAPI());
-        Log.e("----------->", "Build.TIMELINE_SUPPORTED_SDK_INT=553779201");
-        if (api.getWXAppSupportAPI() >= Build.TIMELINE_SUPPORTED_SDK_INT) {//是否支持发送到朋友圈
-            Bitmap bitmap = ImageDealUtil.decodeFile(picPath, 4000);
-            WXImageObject imgObj = new WXImageObject(bitmap);
-            WXMediaMessage msg = new WXMediaMessage();
-            msg.mediaObject = imgObj;
-            Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
-            bitmap.recycle();
-            msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
-            SendMessageToWX.Req req = new SendMessageToWX.Req();
-            req.transaction = String.valueOf(System.currentTimeMillis());
-            req.message = msg;
-            if (type == 1) {
-                req.scene = 1;
-            }
-
-            if (type == 2) {
-                req.scene = 0;
-            }
-
-            this.api.sendReq(req);
-        } else {
-            Toast.makeText(this, "当前设备不支持分享", Toast.LENGTH_SHORT).show();
+        Bitmap bitmap = ImageDealUtil.decodeFile(picPath, 4000);
+        WXImageObject imgObj = new WXImageObject(bitmap);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
+        bitmap.recycle();
+        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        if (type == 1) {
+            req.scene = 1;
         }
+
+        if (type == 2) {
+            req.scene = 0;
+        }
+
+        this.api.sendReq(req);
     }
     private void upload(String albumPath,int num,String types){
-        this.getPermissionFor = 7;
-        this.imageUploadData = new ImageUploadData(albumPath, num, types);
+        if (this.judgeCameraAndStoragePermission()) {
+            this.saveDirUpload = albumPath;
+            this.uploadMaxNum = num;
 
-        try {
-            JSONArray array = new JSONArray(types);
-            ArrayList<CategoryType> categoryTypes = new ArrayList();
+            try {
+                JSONArray array = new JSONArray(types);
+                this.categoryTypes = new ArrayList();
 
-            for(int i = 0; i < array.length(); ++i) {
-                JSONObject json = array.getJSONObject(i);
-                CategoryType type = new CategoryType();
-                type.setCategory(json.getString("name"));
-                type.setCategory_id(json.getString("id"));
-                categoryTypes.add(type);
+                for(int i = 0; i < array.length(); ++i) {
+                    JSONObject json = array.getJSONObject(i);
+                    CategoryType type = new CategoryType();
+                    type.setCategory(json.getString("name"));
+                    type.setCategory_id(json.getString("id"));
+                    this.categoryTypes.add(type);
+                }
+
+                this.selectAlbumToUpload(albumPath, num);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            this.imageUploadData.setCategoryTypes(categoryTypes);
-            if (!this.judgeCameraAndStoragePermission()) {
-                return;
-            }
-
-            this.selectAlbumToUpload(albumPath, num);
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
     private void selectAlbumToUpload(String filePath, int num){
-        if (this.mAlbumFiles != null) {
-            this.mAlbumFiles.clear();
+        saveDirUpload = filePath;
+        uploadMaxNum = num;
+        if(mAlbumFiles!=null){
+            mAlbumFiles.clear();
         }
         Album.image(MainActivity.this)
                 .multipleChoice()
                 .camera(true)
                 .columnCount(2)
-                .selectCount(this.imageUploadData.getNum())
+                .selectCount(uploadMaxNum)
                 .checkedList(mAlbumFiles)
                 .setTakePictureType(5)
                 .widget(
                         Widget.newDarkBuilder(MainActivity.this)
-                                .title("选择图片")
+                                .title(getResources().getString(com.yanzhenjie.album.R.string.album_album))
                                 .build()
                 )
                 .onResult(new Action<ArrayList<AlbumFile>>() {
@@ -472,7 +443,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                                         uploadFile.setFilePath(mAlbumFiles.get(i).getPath());
                                         files.add(uploadFile);
                                     }
-                                    startUploadActivity(MainActivity.this.imageUploadData.getAlbumPath(), MainActivity.this.imageUploadData.getNum(),files);
+                                    startUploadActivity(saveDirUpload,uploadMaxNum,files);
                                 }
                             });
                         }
@@ -486,181 +457,77 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 })
                 .start();
     }
-    private boolean isHavePermission(){
-        boolean storage,camera;
-        storage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
-        camera = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.CAMERA);
-        return storage&&camera;
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionUtil.PermissionGrantResutListener listener = new PermissionUtil.PermissionGrantResutListener() {
             @Override
             public void grantSuccess(PermissionUtil.TYPE type) {
-                if(permissionObjectDialog!=null){
-                    permissionObjectDialog.dismiss();
+                if (type.equals(PermissionUtil.TYPE.CAMERA) && MainActivity.this.judgeCameraAndStoragePermission()) {
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 1) {
+                        MainActivity.this.GetMultipleAlbumPathV1Implement(MainActivity.this.multipleAlbumPathInfo.getSaveDir(), MainActivity.this.multipleAlbumPathInfo.getImageNum(), MainActivity.this.multipleAlbumPathInfo.getTypes());
+                    }
+
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 2) {
+                        MainActivity.this.cutCapture(MainActivity.this.albumPath);
+                    }
                 }
+
+                if (type.equals(PermissionUtil.TYPE.STORAGE) && MainActivity.this.judgeCameraAndStoragePermission()) {
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 1) {
+                        MainActivity.this.GetMultipleAlbumPathV1Implement(MainActivity.this.multipleAlbumPathInfo.getSaveDir(), MainActivity.this.multipleAlbumPathInfo.getImageNum(), MainActivity.this.multipleAlbumPathInfo.getTypes());
+                    }
+
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 2) {
+                        MainActivity.this.cutCapture(MainActivity.this.albumPath);
+                    }
+                }
+
+                if (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS) && MainActivity.this.judgeCameraAndStoragePermission()) {
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 1) {
+                        MainActivity.this.GetMultipleAlbumPathV1Implement(MainActivity.this.multipleAlbumPathInfo.getSaveDir(), MainActivity.this.multipleAlbumPathInfo.getImageNum(), MainActivity.this.multipleAlbumPathInfo.getTypes());
+                    }
+
+                    if (MainActivity.this.getCameraAndAlbumPermissionFor == 2) {
+                        MainActivity.this.cutCapture(MainActivity.this.albumPath);
+                    }
+                }
+
+            }
+            @Override
+            public void grantFailed(PermissionUtil.TYPE type) {
                 if (type.equals(PermissionUtil.TYPE.CAMERA)) {
-                    switch (MainActivity.this.getPermissionFor)
-                    {
-                        case 1:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.GetMultipleAlbumPathV1Implement(MainActivity.this.multipleAlbumPathInfo.getSaveDir(), MainActivity.this.multipleAlbumPathInfo.getImageNum(), MainActivity.this.multipleAlbumPathInfo.getTypes()); break;
-                        case 2:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.cutCapture(MainActivity.this.albumPath); break;
-                        case 4:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent in = new Intent();
-                                in.setClass(MainActivity.this, CaptureActivity.class);
-                                in.putExtra("start_type", 3);
-                                MainActivity.this.startActivity(in);
-                            }break;
-                        case 5:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.doGetAlbumPath(); break;
-                        case 6:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent jingxiangpai = new Intent();
-                                jingxiangpai.putExtra("start_type", 2);
-                                jingxiangpai.setClass(MainActivity.this, CaptureActivity.class);
-                                MainActivity.this.startActivity(jingxiangpai);
-                            }break;
-                        case 7:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.selectAlbumToUpload(MainActivity.this.imageUploadData.getAlbumPath(), MainActivity.this.imageUploadData.getNum()); break;
-                        case 8:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent in = new Intent();
-                                in.setClass(MainActivity.this, ARActivity.class);
-                                in.putExtra("fileFsPath", MainActivity.this.aRdata.getKt());
-                                in.putExtra("fileKtPath", MainActivity.this.aRdata.getFs());
-                                MainActivity.this.startActivity(in);
-                            }
-                        case 3:
-                    }
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.camera_permission_disabled), Toast.LENGTH_LONG).show();
                 }
 
-                if ((type.equals(PermissionUtil.TYPE.STORAGE)) || (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS))) {
-                    switch (MainActivity.this.getPermissionFor)
-                    {
-                        case 1:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.GetMultipleAlbumPathV1Implement(MainActivity.this.multipleAlbumPathInfo.getSaveDir(), MainActivity.this.multipleAlbumPathInfo.getImageNum(), MainActivity.this.multipleAlbumPathInfo.getTypes()); break;
-                        case 2:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.cutCapture(MainActivity.this.albumPath); break;
-                        case 3:
-                            if (MainActivity.this.judgeStoragePermission()) {
-                                MainActivity.this.regToWx();
-                                MainActivity.this.shareUrlToWeixin(MainActivity.this.shareWeixinUrlData); } break;
-                        case 4:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent in = new Intent();
-                                in.setClass(MainActivity.this, CaptureActivity.class);
-                                in.putExtra("start_type", 3);
-                                MainActivity.this.startActivity(in);
-                            }break;
-                        case 5:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.doGetAlbumPath(); break;
-                        case 6:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent jingxiangpai = new Intent();
-                                jingxiangpai.putExtra("start_type", 2);
-                                jingxiangpai.setClass(MainActivity.this, CaptureActivity.class);
-                                MainActivity.this.startActivity(jingxiangpai);
-                            }break;
-                        case 7:
-                            if (MainActivity.this.judgeCameraAndStoragePermission())
-                                MainActivity.this.selectAlbumToUpload(MainActivity.this.imageUploadData.getAlbumPath(), MainActivity.this.imageUploadData.getNum()); break;
-                        case 8:
-                            if (MainActivity.this.judgeCameraAndStoragePermission()) {
-                                Intent in = new Intent();
-                                in.setClass(MainActivity.this, ARActivity.class);
-                                in.putExtra("fileFsPath", MainActivity.this.aRdata.getKt());
-                                in.putExtra("fileKtPath", MainActivity.this.aRdata.getFs());
-                                MainActivity.this.startActivity(in);
-                            }break;
-                        case 9:
-                            if (MainActivity.this.judgeStoragePermission()) {
-                                MainActivity.this.regToWx();
-                                MainActivity.this.shareImageToWeixin(MainActivity.this.shareWeixinPicData.getType(), MainActivity.this.shareWeixinPicData.getPicPath()); } break;
-                    }
-
+                if (type.equals(PermissionUtil.TYPE.STORAGE)) {
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.storage_permissions_disabled), Toast.LENGTH_LONG).show();
                 }
 
-                if (type.equals(PermissionUtil.TYPE.LOCATION)) {
-                    boolean isAndroid13 = SystemUtil.getIsHigherThanAndroidTIRAMISU();
-                    if (isAndroid13) {
-                        boolean b = PermissionUtil.isHavePermission(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK).booleanValue();
-                        if (!b) {
-                            PermissionUtil.startRequestPermission(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK, null);
-                            Toast.makeText(MainActivity.this, "请选择'始终允许'，以获取更好的位置服务", Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        MainActivity.this.LocationPermissionResult("OK");
-                    }
+                if (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS)) {
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.media_permissions_disabled), Toast.LENGTH_LONG).show();
                 }
-                if (type.equals(PermissionUtil.TYPE.LOCATION_BACK))
-                    MainActivity.this.LocationPermissionResult("OK");
-
             }
 
             @Override
-            public void grantFailed(PermissionUtil.TYPE type) {
-                if (MainActivity.this.permissionObjectDialog != null) {
-                    MainActivity.this.permissionObjectDialog.dismiss();
-                }
+            public void grantFailedAndNotAllowRequest(PermissionUtil.TYPE type) {
                 if (type.equals(PermissionUtil.TYPE.CAMERA)) {
-                    Toast.makeText(MainActivity.this, "未得到相机权限", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_camera_permissions), Toast.LENGTH_LONG).show();
+                    PermissionUtil.toAppSelfSetting(MainActivity.this);
                 }
-                if (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS)) {
-                    Toast.makeText(MainActivity.this, "未得到媒体权限", Toast.LENGTH_LONG).show();
-                }
-                if (type.equals(PermissionUtil.TYPE.STORAGE)) {
-                    Toast.makeText(MainActivity.this, "未得到存储权限", Toast.LENGTH_LONG).show();
-                }
-                if (type.equals(PermissionUtil.TYPE.LOCATION)) {
-                    Toast.makeText(MainActivity.this, "未得到位置权限", Toast.LENGTH_LONG).show();
-                    MainActivity.this.LocationPermissionResult("NO");
-                }
-                if (type.equals(PermissionUtil.TYPE.LOCATION_BACK)) {
-                    Toast.makeText(MainActivity.this, "未得到后台位置权限", Toast.LENGTH_LONG).show();
-                    MainActivity.this.LocationPermissionResult("NO");
-                }
-            }
 
-            public void grantFailedAndNotAllowRequest(PermissionUtil.TYPE type)
-            {
-                if (MainActivity.this.permissionObjectDialog != null) {
-                    MainActivity.this.permissionObjectDialog.dismiss();
-                }
-                if (type.equals(PermissionUtil.TYPE.CAMERA)) {
-                    Toast.makeText(MainActivity.this, "请打开位相机权限", Toast.LENGTH_LONG).show();
-                    PermissionUtil.toAppSelfSetting(MainActivity.this);
-                }
-                if (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS)) {
-                    Toast.makeText(MainActivity.this, "请打开位媒体权限(照片和视频权限)", Toast.LENGTH_LONG).show();
-                    PermissionUtil.toAppSelfSetting(MainActivity.this);
-                }
                 if (type.equals(PermissionUtil.TYPE.STORAGE)) {
-                    Toast.makeText(MainActivity.this, "请打开位存储权限", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_storage_permissions), Toast.LENGTH_LONG).show();
                     PermissionUtil.toAppSelfSetting(MainActivity.this);
                 }
-                if (type.equals(PermissionUtil.TYPE.LOCATION)) {
-                    MainActivity.this.LocationPermissionResult("NO");
-                    Toast.makeText(MainActivity.this, "请打开位置权限", Toast.LENGTH_LONG).show();
+
+                if (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS)) {
+                    Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_media_permissions), Toast.LENGTH_LONG).show();
                     PermissionUtil.toAppSelfSetting(MainActivity.this);
                 }
-                if (type.equals(PermissionUtil.TYPE.LOCATION_BACK)) {
-                    MainActivity.this.LocationPermissionResult("NO");
-                    Toast.makeText(MainActivity.this, "请打开后台位置权限", Toast.LENGTH_LONG).show();
-                    PermissionUtil.toAppSelfSetting(MainActivity.this);
-                }
+
                 if (type.equals(PermissionUtil.TYPE.POST_NOTIFICATIONS)) {
-                    Toast.makeText(MainActivity.this, "请打开通知权限", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Please open notification permissions", Toast.LENGTH_LONG).show();
                     PermissionUtil.toAppSelfSetting(MainActivity.this);
                 }
             }
@@ -668,13 +535,11 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.CAMERA, listener);
         PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.STORAGE, listener);
         PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.LOCATION, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.LOCATION_BACK, listener);
         PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.POST_NOTIFICATIONS, listener);
+
+
     }
     public void arAction(String kt,String fs){
-        this.getPermissionFor = 8;
-        this.aRdata = new ARdata(kt, fs);
         if (this.judgeCameraAndStoragePermission()) {
             Intent in = new Intent();
             in.setClass(this, ARActivity.class);
@@ -694,7 +559,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
     private void startUploadActivity(String saveDir,int num,ArrayList<UploadFile> files){
         Intent intent = new Intent();
         intent.putExtra("fileSelected", files);
-        intent.putExtra("categoryTypes", this.imageUploadData.getCategoryTypes());
+        intent.putExtra("categoryTypes", categoryTypes);
         intent.putExtra("fileDir",saveDir);
         intent.putExtra("num",num);
         intent.setClass(MainActivity.this, UploadActivity.class);
@@ -731,18 +596,18 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         file.setFilePath(fileSavePath);
         files.add(file);
         if(takePictureType ==5){
-            startUploadActivity(this.imageUploadData.getAlbumPath(),imageMaxNumUpload,files);
+            startUploadActivity(saveDirUpload,imageMaxNumUpload,files);
         }else if(takePictureType==7){
-            startPicturesUploadActivity(this.imageUploadData.getAlbumPath(),imageMaxNumUpload,files);
+            startPicturesUploadActivity(saveDirUpload,imageMaxNumUpload,files);
         }
     }
     //广播调用上传拍照切换到相册
     public void albumCaptureToAlbum(int takePictureType){
         if(takePictureType==5){
-            selectAlbumToUpload(imageUploadData.getAlbumPath(), imageMaxNumUpload);
+            selectAlbumToUpload(saveDirUpload, imageMaxNumUpload);
         }
         if(takePictureType==7){
-            selectAlbumToUpload(imageUploadData.getAlbumPath(), imageMaxNumUpload);
+            selectAlbumToUpload(saveDirUpload, imageMaxNumUpload);
         }
     }
     private void initReceiver(){
@@ -761,6 +626,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
             unregisterReceiver(receiver);
         }
     }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
@@ -772,7 +638,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 System.exit(0);
             }else{
                 lastTime = now;
-                Toast.makeText(this,"再按一次退出石全石美",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,getResources().getString(R.string.press_again_to_exit_stone_idea),Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -853,7 +719,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
     private void  startPicturesUploadActivity(String saveDir,int imageMaxNum,ArrayList<UploadFile> files){
         Intent intent = new Intent();
         intent.putExtra("fileSelected", files);
-        intent.putExtra("categoryTypes", this.imageUploadData.getCategoryTypes());
+        intent.putExtra("categoryTypes", categoryTypes);
         intent.putExtra("saveDir",saveDir);
         intent.putExtra("num",imageMaxNum);
         common.gotoActivity(this,PicturesUploadActivity.class,intent);
@@ -872,94 +738,76 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
 //        }
     }
     private void getPermissionOfStorage() {
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.STORAGE, new PermissionUtil.RequestPermissionListener()
-        {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.STORAGE, new PermissionUtil.RequestPermissionListener() {
             public void havePermission() {
-                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
             }
 
-            public void canRequestPermission()
-            {
-                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 2);
+            public void canRequestPermission() {
             }
 
-            public void notAllowRquestAgain()
-            {
-                Toast.makeText(MainActivity.this, "请打开存储权限", Toast.LENGTH_LONG).show();
-                PermissionUtil.toAppSelfSetting(MainActivity.this);
-            } } );
-    }
-
-    private void getMediaPermission() {
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, new PermissionUtil.RequestPermissionListener()
-        {
-            public void havePermission() {
-                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
-            }
-
-            public void canRequestPermission()
-            {
-                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 1);
-            }
-
-            public void notAllowRquestAgain()
-            {
-                Toast.makeText(MainActivity.this, "请打开照片和视频权限", Toast.LENGTH_LONG).show();
-                PermissionUtil.toAppSelfSetting(MainActivity.this);
-            } } );
-    }
-
-    private void getPermissionOfCamera() {
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA, new PermissionUtil.RequestPermissionListener()
-        {
-            public void havePermission() {
-                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
-            }
-
-            public void canRequestPermission()
-            {
-                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 0);
-            }
-
-            public void notAllowRquestAgain()
-            {
-                Toast.makeText(MainActivity.this, "请打开相机权限", Toast.LENGTH_LONG).show();
+            public void notAllowRquestAgain() {
+                Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_storage_permissions), Toast.LENGTH_LONG).show();
                 PermissionUtil.toAppSelfSetting(MainActivity.this);
             }
         });
     }
 
+    private void getMediaPermission() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, new PermissionUtil.RequestPermissionListener() {
+            public void havePermission() {
+            }
+
+            public void canRequestPermission() {
+            }
+
+            public void notAllowRquestAgain() {
+                Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_media_permissions), Toast.LENGTH_LONG).show();
+                PermissionUtil.toAppSelfSetting(MainActivity.this);
+            }
+        });
+    }
+
+    private void getPermissionOfCamera() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA, new PermissionUtil.RequestPermissionListener() {
+            public void havePermission() {
+            }
+
+            public void canRequestPermission() {
+            }
+
+            public void notAllowRquestAgain() {
+                Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.please_open_camera_permissions), Toast.LENGTH_LONG).show();
+                PermissionUtil.toAppSelfSetting(MainActivity.this);
+            }
+        });
+    }
     @Override
     public void GetMultipleAlbumPath(String saveDir, int imageNum, String types) {
         multipleAlbumPathInfo = new GetMultipleAlbumPathInfo(saveDir,imageNum,types);
-        this.getPermissionFor = 1;
-        this.imageUploadData = new ImageUploadData(saveDir, imageNum, types);
-
+        //获取权限
+        getCameraAndAlbumPermissionFor = 1;
+        if (this.judgeCameraAndStoragePermission()) {
+            this.GetMultipleAlbumPathV1Implement(this.multipleAlbumPathInfo.getSaveDir(), this.multipleAlbumPathInfo.getImageNum(), this.multipleAlbumPathInfo.getTypes());
+        }
+    }
+    private void GetMultipleAlbumPathV1Implement(final String saveDir, final int imageNum, final String types) {
+        this.saveDirUpload = saveDir;
+        this.imageMaxNumUpload = imageNum;
+        if (mAlbumFiles != null) {
+            mAlbumFiles.clear();
+        }
         try {
             JSONArray array = new JSONArray(types);
-            ArrayList<CategoryType> categoryTypes = new ArrayList();
-
-            for(int i = 0; i < array.length(); ++i) {
+            categoryTypes = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject json = array.getJSONObject(i);
                 CategoryType type = new CategoryType();
                 type.setCategory(json.getString("name"));
                 type.setCategory_id(json.getString("id"));
                 categoryTypes.add(type);
             }
+        }catch ( Exception exception){
 
-            this.imageUploadData.setCategoryTypes(categoryTypes);
-        } catch (Exception var9) {
-        }
-
-        if (this.judgeCameraAndStoragePermission()) {
-            this.GetMultipleAlbumPathV1Implement(this.multipleAlbumPathInfo.getSaveDir(), this.multipleAlbumPathInfo.getImageNum(), this.multipleAlbumPathInfo.getTypes());
-        }
-
-    }
-    private void GetMultipleAlbumPathV1Implement(final String saveDir, final int imageNum, final String types) {
-        this.imageMaxNumUpload = imageNum;
-        if (mAlbumFiles != null) {
-            mAlbumFiles.clear();
         }
         Album.image(MainActivity.this)
                 .multipleChoice()
@@ -970,7 +818,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 .setTakePictureType(7)
                 .widget(
                         Widget.newDarkBuilder(MainActivity.this)
-                                .title("选择图片")
+                                .title(getResources().getString(com.yanzhenjie.album.R.string.album_album))
                                 .build()
                 )
                 .onResult(new Action<ArrayList<AlbumFile>>() {
@@ -1007,42 +855,28 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 })
                 .start();
     }
+    public void RequestLocationPermission() {
+    }
 
-    //unity调用，请求定位权限
-    public void RequestLocationPermission(){
-        if (!LocationUtil.isLocServiceEnable(this)) {
-            Toast.makeText(this, "请开启定位服务", Toast.LENGTH_SHORT).show();
-            this.LocationPermissionResult("NO");
-        } else {
-            PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.LOCATION, (PermissionUtil.RequestPermissionListener)null);
+    private void LocationPermissionResult(String result) {
+    }
+
+    public void getNotificationForUnity() {
+        if (SystemUtil.getIsHigherThanAndroidTIRAMISU() && !PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.POST_NOTIFICATIONS)) {
+            this.getPermissionOfNotification();
         }
-    }
-    private void LocationPermissionResult(String result){
-        //reuslt: OK 获取到权限，NO 未获取到权限,
-        UnityPlayer.UnitySendMessage("IOsReciveObj","LocationPermissionResult",result);
-    }
-    public void getNotificationForUnity()
-    {
-        if ((!SystemUtil.getIsHigherThanAndroidTIRAMISU()) ||
-                (PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.POST_NOTIFICATIONS).booleanValue())) return;
-        getPermissionOfNotification();
-    }
 
-    private void getPermissionOfNotification()
-    {
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.POST_NOTIFICATIONS, new PermissionUtil.RequestPermissionListener()
-        {
-            public void havePermission()
-            {
+    }
+    private void getPermissionOfNotification() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.POST_NOTIFICATIONS, new PermissionUtil.RequestPermissionListener() {
+            public void havePermission() {
             }
 
-            public void canRequestPermission()
-            {
+            public void canRequestPermission() {
             }
 
-            public void notAllowRquestAgain()
-            {
-                Toast.makeText(MainActivity.this, "请打开通知权限", Toast.LENGTH_LONG).show();
+            public void notAllowRquestAgain() {
+                Toast.makeText(MainActivity.this, "Please open notification permissions", Toast.LENGTH_LONG).show();
                 PermissionUtil.toAppSelfSetting(MainActivity.this);
             }
         });

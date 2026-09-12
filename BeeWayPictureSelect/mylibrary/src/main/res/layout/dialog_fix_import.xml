@@ -15,7 +15,7 @@
         android:layout_height="36px"
         android:layout_marginTop="18px"
         android:textSize="20px"
-        android:text="产品信息"
+        android:text="@string/production_information"
         android:gravity="center"
         android:textColor="@color/color101010"/>
     <View
@@ -34,7 +34,7 @@
         android:layout_marginTop="70px"
         android:gravity="center"
         android:textSize="18px"
-        android:text="名称"
+        android:text="@string/name"
         android:textColor="@color/color101010"/>
     <EditText
         android:id = "@+id/et_name"
@@ -47,7 +47,7 @@
         android:paddingRight="5dp"
         android:textSize="18px"
         android:text=""
-        android:hint="石材01"
+        android:hint="@string/name_hint"
         android:textColorHint="@color/color919191"
         android:background="@color/translate"
         android:textColor="@color/color101010"/>
@@ -67,7 +67,7 @@
         android:layout_marginTop="126px"
         android:gravity="center"
         android:textSize="18px"
-        android:text="分类"
+        android:text="@string/type"
         android:textColor="@color/color101010"/>
     <TextView
         android:id = "@+id/tv_type_content"
@@ -80,7 +80,7 @@
         android:paddingRight="5dp"
         android:textSize="18px"
         android:text=""
-        android:hint="分类"
+        android:hint="@string/type_hint"
         android:textColorHint="@color/color919191"
         android:background="@color/translate"
         android:textColor="@color/color101010"
@@ -102,7 +102,7 @@
         android:layout_marginTop="181px"
         android:gravity="center"
         android:textSize="18px"
-        android:text="宽度"
+        android:text="@string/width"
         android:textColor="@color/color101010"/>
     <EditText
         android:id = "@+id/et_width"
@@ -115,7 +115,7 @@
         android:paddingRight="5dp"
         android:textSize="18px"
         android:text=""
-        android:hint="宽度"
+        android:hint="@string/width"
         android:inputType="number"
         android:textColorHint="@color/color919191"
         android:background="@color/translate"
@@ -137,7 +137,7 @@
         android:layout_marginTop="236px"
         android:gravity="center"
         android:textSize="18px"
-        android:text="高度"
+        android:text="@string/height"
         android:textColor="@color/color101010"/>
     <EditText
         android:id = "@+id/et_height"
@@ -151,7 +151,7 @@
         android:textSize="18px"
         android:inputType="number"
         android:text=""
-        android:hint="高度"
+        android:hint="@string/height"
         android:textColorHint="@color/color919191"
         android:background="@color/translate"
         android:textColor="@color/color101010"/>
@@ -162,7 +162,7 @@
         android:layout_marginTop="288px"
         android:gravity="center"
         android:textSize="20px"
-        android:text="取消"
+        android:text="@string/cancel"
         android:textColor="@color/color101010"/>
     <TextView
         android:id = "@+id/tv_import"
@@ -172,6 +172,6 @@
         android:layout_marginTop="288px"
         android:gravity="center"
         android:textSize="20px"
-        android:text="确定"
+        android:text="@string/sure"
         android:textColor="@color/color00BABA"/>
 </FrameLayout>

@@ -4,9 +4,8 @@ plugins {
 
 android {
     compileSdkVersion 35
-    namespace "com.beeinc.SQSB"
     defaultConfig {
-
+        namespace "com.beeinc.SQSB"
         applicationId "com.beeinc.SQSB"
         minSdkVersion 21
         targetSdkVersion 35

@@ -44,14 +44,13 @@
             android:id = "@+id/v_wx_friend"
             android:layout_width="118px"
             android:layout_height="83px"
-            android:layout_marginLeft="48px"
-            android:layout_marginTop="68px"
-            />
+            android:layout_marginLeft="71px"
+            android:layout_marginTop="68px"/>
         <ImageView
             android:id = "@+id/iv_wx_friend"
             android:layout_width="45px"
             android:layout_height="45px"
-            android:layout_marginLeft="84px"
+            android:layout_marginLeft="107px"
             android:layout_marginTop="68px"
             android:scaleType="fitXY"
             android:src= "@mipmap/icon_wx_friend"
@@ -60,7 +59,7 @@
             android:id = "@+id/tv_wx_friend"
             android:layout_width="118px"
             android:layout_height="38px"
-            android:layout_marginLeft="48px"
+            android:layout_marginLeft="71px"
             android:layout_marginTop="113px"
             android:text = "微信好友"
             android:textSize="18px"
@@ -71,14 +70,13 @@
             android:id = "@+id/v_wx_friends"
             android:layout_width="118px"
             android:layout_height="83px"
-            android:layout_marginLeft="214px"
-            android:layout_marginTop="68px"
-            />
+            android:layout_marginLeft="189px"
+            android:layout_marginTop="68px"/>
         <ImageView
             android:id = "@+id/iv_wx_friends"
             android:layout_width="45px"
             android:layout_height="45px"
-            android:layout_marginLeft="250px"
+            android:layout_marginLeft="225px"
             android:layout_marginTop="68px"
             android:scaleType="fitXY"
             android:src= "@mipmap/icon_wx_friends"
@@ -87,12 +85,24 @@
             android:id = "@+id/tv_wx_friends"
             android:layout_width="118px"
             android:layout_height="38px"
-            android:layout_marginLeft="214px"
+            android:layout_marginLeft="189px"
             android:layout_marginTop="113px"
             android:text = "朋友圈"
             android:textSize="18px"
             android:gravity="center"
             android:textColor="@color/color9b9b9b"
             />
-    </FrameLayout>>
+
+        <TextView
+            android:id = "@+id/tv_cancel"
+            android:layout_width="380px"
+            android:layout_height="45px"
+            android:layout_marginTop="163px"
+            android:text = "取消"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666666"
+            android:background="#f0f0f0"
+            />
+    </FrameLayout>
 </FrameLayout>

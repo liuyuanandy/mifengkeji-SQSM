@@ -233,36 +233,6 @@
             android:gravity="center"
             android:textColor="@color/color9b9b9b"
             />
-        <View
-            android:id = "@+id/v_qq"
-            android:layout_width="118px"
-            android:layout_height="83px"
-            android:layout_marginLeft="248px"
-            android:layout_marginTop="308px"
-            android:visibility="invisible"
-            />
-        <ImageView
-            android:id = "@+id/iv_qq"
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:layout_marginLeft="284px"
-            android:layout_marginTop="308px"
-            android:scaleType="fitXY"
-            android:src= "@mipmap/icon_qq"
-            android:visibility="invisible"
-            />
-        <TextView
-            android:id = "@+id/tv_qq"
-            android:layout_width="118px"
-            android:layout_height="38px"
-            android:layout_marginLeft="248px"
-            android:layout_marginTop="353px"
-            android:text = "QQ"
-            android:textSize="18px"
-            android:gravity="center"
-            android:textColor="@color/color9b9b9b"
-            android:visibility="invisible"
-            />
         <TextView
             android:id = "@+id/tv_cancel"
             android:layout_width="380px"

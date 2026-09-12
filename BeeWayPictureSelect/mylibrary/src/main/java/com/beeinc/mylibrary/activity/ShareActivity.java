@@ -99,6 +99,7 @@ public class ShareActivity extends Activity {
         scaleViews.add(v_line_share_right);
         scaleViews.add(v_wx_friend);
         scaleViews.add(v_wx_friends);
+
         scaleViews.add(iv_wx_friend);
         scaleViews.add(iv_wx_friends);
         scaleTextViews.add(tv_title);
@@ -138,9 +139,6 @@ public class ShareActivity extends Activity {
                         return;
                     }
                 }
-                if(v.getId()== R.id.v_qq){
-                    share(3);
-                }
                 if(v.getId()== R.id.tv_cancel){
                     finish();
                 }
@@ -161,7 +159,7 @@ public class ShareActivity extends Activity {
 
     /**
      *
-     * @param type 1 微信朋友，2朋友圈 ，3qq
+     * @param type 1 微信朋友，2朋友圈
      */
     private void share(int type){
         String code = et_code.getText().toString().trim();
@@ -173,8 +171,6 @@ public class ShareActivity extends Activity {
             intent.putExtra("type", "wx_friend");
         }else if(type==2){
             intent.putExtra("type", "wx_friends");
-        }else if(type==3){
-            intent.putExtra("type", "qq");
         }
         Log.e("---------------->","share type 1 = "+type);
         intent.putExtra("code", code);

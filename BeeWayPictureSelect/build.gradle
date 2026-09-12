@@ -7,8 +7,9 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/central' } //  https:repo1.maven.org/maven2/
         maven { url 'https://maven.aliyun.com/repository/google' }  //  google()
         maven { url 'https://maven.aliyun.com/repository/public' }  //jcenter()
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}//https://plugins.gradle.org/m2/
         google()//https://plugins.gradle.org/m2/
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.13.0'
@@ -26,8 +27,9 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/central' } //  https:repo1.maven.org/maven2/
         maven { url 'https://maven.aliyun.com/repository/google' }  //  google()
         maven { url 'https://maven.aliyun.com/repository/public' }  //jcenter()
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}//https://plugins.gradle.org/m2/
         google()//https://plugins.gradle.org/m2/
+        jcenter()
     }
 }
 

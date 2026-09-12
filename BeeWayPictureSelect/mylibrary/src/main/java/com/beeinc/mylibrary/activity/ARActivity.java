@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +23,7 @@ import com.beeinc.mylibrary.scale.ScreenUtil;
 import com.beeinc.mylibrary.util.ConstantData;
 import com.beeinc.mylibrary.util.FileUtil;
 import com.beeinc.mylibrary.util.ImageDealUtil;
+import com.beeinc.mylibrary.util.PermissionUtil;
 import com.beeinc.mylibrary.views.Tutorial3View;
 import com.test.RemapHelper;
 import com.yanzhenjie.album.Action;
@@ -47,7 +47,7 @@ import java.util.List;
 
 public class ARActivity extends CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
-    private View v_cover,v_top,v_bottom,v_left,v_right;
+    private View v_left,v_right;
     private ImageView iv_ar_fs,iv_ar_kt;
     private Tutorial3View mOpenCvCameraView;
     private String TAG = "ARActivity";
@@ -63,7 +63,6 @@ public class ARActivity extends CameraActivity implements CameraBridgeViewBase.C
     private int image_width;//图片显示宽度
     private int image_height;//图片显示高度
     private Handler handler;
-    private int MESSAGE_SHOW_CONTENT;//显示相机内容
 
     private ArrayList<AlbumFile> mAlbumFiles;
     private String fileKtPath,fileFsPath;
@@ -110,10 +109,6 @@ public class ARActivity extends CameraActivity implements CameraBridgeViewBase.C
         hideNavigatonButton();
     }
     private void getAllViews(){
-
-        v_cover = findViewById(R.id.v_cover);
-        v_top = findViewById(R.id.v_top);
-        v_bottom = findViewById(R.id.v_bottom);
         v_left = findViewById(R.id.v_left);
         v_right = findViewById(R.id.v_right);
         iv_ar_kt = findViewById(R.id.iv_ar_kt);
@@ -127,15 +122,7 @@ public class ARActivity extends CameraActivity implements CameraBridgeViewBase.C
         iv_four = findViewById(R.id.iv_four);
     }
     private void initHandler(){
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message message){
-                super.handleMessage(message);
-                if(message.what==MESSAGE_SHOW_CONTENT){
-                    v_cover.setVisibility(View.GONE);
-                }
-            }
-        };
+        handler = new Handler();
     }
     private void setParams(){
         FrameLayout.LayoutParams p_options = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -362,63 +349,40 @@ public class ARActivity extends CameraActivity implements CameraBridgeViewBase.C
         if(image_width==0){
             image_width = mat.cols();
             image_height = mat.rows();
-            Log.e("-------------->","image_width = "+image_width+";image_height = "+image_height);
-
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    float cameraRio = (float)image_width/image_height;
-                    float fsRio = (float)bitmapFs.getWidth()/bitmapFs.getHeight();
-                    float screenRio = (float)ScreenUtil.SCREEN_THIS_W/ScreenUtil.SCREEN_THIS_H;
-                    float cameraScale;
-                    if(cameraRio>screenRio){
-                        cameraScale = (float)ScreenUtil.SCREEN_THIS_W/image_width;
-                    }else{
-                        cameraScale = (float)ScreenUtil.SCREEN_THIS_H/image_height;
-                    }
+                    int fsWidthShow = (int)((float)bitmapFs.getWidth()*image_height/bitmapFs.getHeight());
+                    int fsHeightShow = image_height;
+                    FrameLayout.LayoutParams p_iv_ar = new FrameLayout.LayoutParams(fsWidthShow,fsHeightShow);
+                    p_iv_ar.gravity = Gravity.CENTER;
+                    iv_ar_fs.setLayoutParams(p_iv_ar);
+                    iv_ar_kt.setLayoutParams(p_iv_ar);
                     if((float)image_width/image_height>(float)bitmapFs.getWidth()/bitmapFs.getHeight()){//相机的宽度比例大于图片的宽度比例
-                        int fsWidthShow = (int)(bitmapFs.getWidth()*image_height*cameraScale/bitmapFs.getHeight());
-                        int fsHeightShow = (int)(image_height*cameraScale);
-                        FrameLayout.LayoutParams p_iv_ar = new FrameLayout.LayoutParams(fsWidthShow,fsHeightShow);
-                        p_iv_ar.gravity = Gravity.CENTER;
-                        iv_ar_fs.setLayoutParams(p_iv_ar);
-                        iv_ar_kt.setLayoutParams(p_iv_ar);
                         v_left.setLayoutParams(new FrameLayout.LayoutParams((ScreenUtil.SCREEN_THIS_W-fsWidthShow)/2,FrameLayout.LayoutParams.MATCH_PARENT ));
                         FrameLayout.LayoutParams p_right = new FrameLayout.LayoutParams((ScreenUtil.SCREEN_THIS_W-fsWidthShow)/2,FrameLayout.LayoutParams.MATCH_PARENT );
                         p_right.gravity = Gravity.RIGHT;
                         v_right.setLayoutParams(p_right);
                     }else{
-                        Log.e("-------------->","这里0002");
-
-                        int fsWidthShow = (int)(image_width*cameraScale);
-                        int fsHeightShow = (int)(image_width*cameraScale*bitmapFs.getHeight()/bitmapFs.getWidth());
-                        FrameLayout.LayoutParams p_iv_ar = new FrameLayout.LayoutParams(fsWidthShow,fsHeightShow);
-                        p_iv_ar.gravity = Gravity.CENTER;
-                        iv_ar_fs.setLayoutParams(p_iv_ar);
-                        iv_ar_kt.setLayoutParams(p_iv_ar);
-                        v_top.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,(ScreenUtil.SCREEN_THIS_H-fsHeightShow)/2));
-                        FrameLayout.LayoutParams p_bottom = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,(ScreenUtil.SCREEN_THIS_H-fsHeightShow)/2);
-                        p_bottom.gravity = Gravity.BOTTOM;
-                        v_bottom.setLayoutParams(p_bottom);
+                        v_left.setLayoutParams(new FrameLayout.LayoutParams((ScreenUtil.SCREEN_THIS_W-image_width)/2,FrameLayout.LayoutParams.MATCH_PARENT ));
+                        FrameLayout.LayoutParams p_right = new FrameLayout.LayoutParams((ScreenUtil.SCREEN_THIS_W-image_width)/2,FrameLayout.LayoutParams.MATCH_PARENT );
+                        p_right.gravity = Gravity.RIGHT;
+                        v_right.setLayoutParams(p_right);
                     }
-                    iv_ar_fs.setVisibility(View.VISIBLE);
-                    iv_ar_kt.setVisibility(View.VISIBLE);
-                    handler.sendEmptyMessageDelayed(MESSAGE_SHOW_CONTENT,800);
+
                 }
             });
         }
         if(takePictureStatus==0){
             takePictureStatus = 1;
             String path = FileUtil.getCacheSaveImagesDir(ARActivity.this)+FileUtil.getNewFileNameByTime()+".jpg";
-            Bitmap scaleFs = null ;
-            Bitmap scaleKt = null;
+            int fsWidthShow = (int)((float)bitmapFs.getWidth()*image_height/bitmapFs.getHeight());
+            int fsHeightShow = image_height;
+            Bitmap scaleFs = Bitmap.createScaledBitmap(bitmapFs,fsWidthShow, fsHeightShow,true);
+            Bitmap scaleKt = Bitmap.createScaledBitmap(bitmapKt,fsWidthShow, fsHeightShow, true);
             Mat camerMat = new Mat();
             mat.copyTo(camerMat);
             if((float)image_width/image_height>(float)bitmapFs.getWidth()/bitmapFs.getHeight()){//相机的宽度比例大于图片的宽度比例
-                int fsWidthShow = (int)((float)bitmapFs.getWidth()*image_height/bitmapFs.getHeight());
-                int fsHeightShow = image_height;
-                scaleFs = Bitmap.createScaledBitmap(bitmapFs,fsWidthShow, fsHeightShow,true);
-                scaleKt = Bitmap.createScaledBitmap(bitmapKt,fsWidthShow, fsHeightShow, true);
                 //裁剪mat
                 Bitmap bitCamera = Bitmap.createBitmap(camerMat.width(), camerMat.height(), Bitmap.Config.ARGB_8888);
                 Utils.matToBitmap(camerMat, bitCamera);
@@ -428,18 +392,9 @@ public class ARActivity extends CameraActivity implements CameraBridgeViewBase.C
                 Utils.bitmapToMat(bitCamera, camerMat);
                 bitCamera.recycle();
             }else{
-                int fsWidthShow = image_width;
-                int fsHeightShow = image_width*bitmapFs.getHeight()/bitmapFs.getWidth();
-                scaleFs = Bitmap.createScaledBitmap(bitmapFs,fsWidthShow, fsHeightShow,true);
-                scaleKt = Bitmap.createScaledBitmap(bitmapKt,fsWidthShow, fsHeightShow, true);
-                //裁剪mat
-                Bitmap bitCamera = Bitmap.createBitmap(camerMat.width(), camerMat.height(), Bitmap.Config.ARGB_8888);
-                Utils.matToBitmap(camerMat, bitCamera);
-                camerMat.release();
-                camerMat = new Mat();
-                bitCamera = Bitmap.createBitmap(bitCamera, 0, (image_height-fsHeightShow)/2, fsWidthShow, fsHeightShow);
-                Utils.bitmapToMat(bitCamera, camerMat);
-                bitCamera.recycle();
+                //裁剪bitmap
+                scaleFs = Bitmap.createBitmap(scaleFs, (scaleFs.getWidth()-image_width)/2, 0, image_width, image_height);
+                scaleKt = Bitmap.createBitmap(scaleKt,(scaleFs.getWidth()-image_width)/2, 0, image_width, image_height);
             }
 
             Mat mat_fs = new Mat();

@@ -33,18 +33,18 @@
             android:layout_height="86px"
             android:layout_marginLeft="55px"
             android:gravity="center_vertical"
-            android:text = "返  回"
+            android:text = "@string/return_to"
             android:textSize="26px"
             android:textColor="@color/colorFFFFFF"></TextView>
         <TextView
             android:id = "@+id/tv_import"
-            android:layout_width="135px"
+            android:layout_width="185px"
             android:layout_height="50px"
-            android:layout_marginLeft="1115px"
+            android:layout_marginLeft="1035px"
             android:layout_marginTop="18px"
             android:gravity="center"
-            android:text = "导入软件"
-            android:textSize="26px"
+            android:text = "@string/import_to_app"
+            android:textSize="22px"
             android:textColor="@color/colorFFFFFF"
             android:background="@drawable/shape_19"></TextView>
     </FrameLayout>
@@ -64,6 +64,7 @@
         <include layout = "@layout/daban_jiaozhen"></include>
         <include layout = "@layout/daban_caijian"></include>
         <FrameLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -75,6 +76,17 @@
                 android:layout_height="64px"
                 android:scaleType="fitXY"
                 android:src = "@mipmap/icon_edit_pictures_rotate"></ImageView>
+            <TextView
+                android:id = "@+id/tv_rotate"
+                android:layout_width="50px"
+                android:layout_height="24px"
+                android:layout_marginLeft="7px"
+                android:layout_marginTop="32px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="13px"
+                android:text = "@string/rotate"
+                android:gravity="center"
+                ></TextView>
         </FrameLayout>
 
 
@@ -222,9 +234,9 @@
                 android:layout_marginLeft="664px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "尺寸"
+                android:text = "@string/size"
                 ></TextView>
 
             <View
@@ -250,9 +262,9 @@
                 android:layout_marginLeft="740px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "删除"
+                android:text = "@string/delete"
                 ></TextView>
 
         </FrameLayout>
@@ -284,9 +296,9 @@
                 android:layout_marginLeft="830px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/color00BABA"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "矫正"
+                android:text = "@string/correction"
                 ></TextView>
 
             <View
@@ -313,9 +325,9 @@
                 android:layout_marginLeft="916px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "裁剪"
+                android:text = "@string/crop"
                 ></TextView>
             <View
                 android:id = "@+id/v_tiaose"
@@ -340,9 +352,9 @@
                 android:layout_marginLeft="1002px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "调色"
+                android:text = "@string/tone"
                 ></TextView>
             <View
                 android:id = "@+id/v_tumo"
@@ -366,9 +378,9 @@
                 android:layout_marginLeft="1088px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "涂抹"
+                android:text = "@string/erase"
                 ></TextView>
             <View
                 android:id = "@+id/v_yinyangse"
@@ -392,9 +404,9 @@
                 android:layout_marginLeft="1174px"
                 android:layout_marginTop="58px"
                 android:textColor="@color/colorFFFFFF"
-                android:textSize="20px"
+                android:textSize="16px"
                 android:gravity="center"
-                android:text = "阴阳色"
+                android:text = "@string/shade"
                 ></TextView>
         </FrameLayout>
         <FrameLayout
@@ -442,7 +454,7 @@
                 android:layout_width="170px"
                 android:layout_height="50px"
                 android:layout_marginLeft="470px"
-                android:text = "自动修图"
+                android:text = "@string/auto_enhance"
                 android:textSize="22px"
                 android:textColor = "@color/colorFFFFFF"
                 android:gravity="center"
@@ -460,7 +472,7 @@
                 android:layout_width="170px"
                 android:layout_height="50px"
                 android:layout_marginLeft="640px"
-                android:text = "手动修图"
+                android:text = "@string/manual_edit"
                 android:textSize="22px"
                 android:textColor = "@color/colorFFFFFF"
                 android:gravity="center"

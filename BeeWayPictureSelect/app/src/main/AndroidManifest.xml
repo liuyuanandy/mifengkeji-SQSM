@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.beeinc.mylibrary">
     <queries>
         <!-- 指定微信包名 -->
         <package android:name="com.tencent.mm" />
@@ -16,7 +17,6 @@
         >
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name="com.beeinc.mylibrary.MainActivity"
-            android:screenOrientation="landscape"
             android:exported="true"
             >
             <intent-filter>

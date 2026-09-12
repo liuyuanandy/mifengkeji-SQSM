@@ -1,7 +1,9 @@
-<resources>
-    <string name="app_name">石全石美</string>
-    <string name = "cut_hint_title">拖动四个角对图片进行矫正或裁切</string>
-    <string name = "cut_hint_desc">矫正：当图片中的石材处于矮斜状态时，可用矫正对其调整。裁切：通过裁切，切掉图片中多余部分</string>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation"
+    >
+    <string name="app_name">Stone Idea</string>
+    <string name = "cut_hint_title">Drag the four corners to correct or crop the picture</string>
+    <string name = "cut_hint_desc">Correction: used when the stone pic is in a distortion.Crop: used to cut off excess parts of the image.</string>
     <string name="btn_plus">+</string>
 
     <string name="title_camera">Camera</string>
@@ -25,18 +27,78 @@
     <string name="canceled">Canceled</string>
     <string name="no_selected">Please select, first.</string>
 
-    <string name = "errcode_success">分享成功</string>
-    <string name = "errcode_cancel">分享已取消</string>
-    <string name = "errcode_deny">分享被拒绝</string>
-    <string name = "errcode_unsupported">当前版本不支持</string>
-    <string name = "errcode_unknown">位置错误</string>
-    <string name = "auto_fix_hint">自动：倾斜矫正、去除遮挡物、修复色差</string>
-    <string name = "jiaozheng_hint_1">拖动4个圆点,对齐石材边缘!</string>
-    <string name = "jiaozheng_hint_2">完成对齐后,点击执行矫正!</string>
-    <string name = "jiaozheng_hint_3">矫正完成!</string>
-    <string name = "caijian_hint_1">拖动4条边,选取裁剪区域!</string>
-    <string name = "caijian_hint_2">选取区域后,点击执行裁剪!</string>
-    <string name = "caijian_hint_3">裁剪完成！</string>
-    <string name = "functiton_none">该功能暂未开放</string>
+    <string name="errcode_cancel">Sharing canceled</string>
+    <string name="errcode_deny">Sharing rejected</string>
+    <string name="errcode_success">Sharing successful</string>
+    <string name="errcode_unknown">unknown error</string>
+    <string name="errcode_unsupported">The current version does not support</string>
+    <string name = "auto_fix_hint">Automatic: tilt correction, occlusion removal, repair of chromatic aberration</string>
+    <string name = "jiaozheng_hint_1">Drag four dots to align the stone edge!</string>
+    <string name = "jiaozheng_hint_2">After completing the alignment, click to perform correction!</string>
+    <string name = "jiaozheng_hint_3">Photo Enhanced!</string>
+    <string name = "caijian_hint_1">Drag 4 edges and select the cropping area!</string>
+    <string name = "caijian_hint_2">After selecting an area, click to execute cropping!</string>
+    <string name = "caijian_hint_3">Cropping completed！</string>
+    <string name = "functiton_none">This feature is currently not available</string>
+    <string name = "cancel">Cancel</string>
+    <string name = "sure">OK</string>
+
+    <string name = "rotate">Rotate</string>
+    <string name = "saved">Saved</string>
+    <string name = "save_to_album">Save to Album</string>
+    <string name = "share">Share</string>
+    <string name = "retake">Retake</string>
+    <string name = "preview">Preview</string>
+    <string name = "apply">Apply</string>
+    <string name = "also_save_to_album">Also Save to Album</string>
+    <string name = "product_width">Product Width:</string>
+    <string name = "product_height">Product Height:</string>
+    <string name = "example">example:1000mm</string>
+    <string name = "return_to">Return</string>
+    <string name = "import_to_app">Import into APP</string>
+    <string name = "size">Size</string>
+    <string name = "delete">Delete</string>
+    <string name = "correction">Correction</string>
+    <string name = "auto_enhancing">Auto Enhancing</string>
+    <string name = "auto_enhance">Auto Enhance</string>
+    <string name = "manual_edit">Manual Edit</string>
+    <string name="media_permissions_disabled">Media permissions disabled</string>
+    <string name = "production_information">Production Information</string>
+    <string name = "name">Name</string>
+    <string name = "name_hint">Stone Name </string>
+
+    <string name = "type">Type</string>
+    <string name = "type_hint">Marble</string>
+
+    <string name = "width">Width</string>
+    <string name = "height">Height</string>
+    <string name = "enhancing">Enhancing...</string>
+    <string name = "please_select_an_image">Please select an image</string>
+    <string name = "photo_enhanced">Photo Enhanced</string>
+    <string name = "undo">Undo</string>
+    <string name = "enhancing_failed">Enhancing Failed</string>
+    <string name = "stones_not_detected">Stones not detected</string>
+    <string name = "crop">Crop</string>
+    <string name = "tone">Tone</string>
+    <string name = "erase">Erase</string>
+    <string name = "shade">Shade</string>
+    <string name = "apply_correction">Apply Correction</string>
+    <string name = "apply_cutting">Apply Cutting</string>
+    <string name = "caution">Caution</string>
+    <string name = "give_up_photo_eidting">Give up photo editing?</string>
+    <string name = "give_up">Give Up</string>
+    <string name = "not_now">Not Now</string>
+    <string name = "please_enable_location_service">Please enable location service</string>
+    <string name = "press_again_to_exit_stone_idea">Press again to exit Stone Idea</string>
+    <string name = "please_select_always_allow">Please select \'Always Allow\' for better location services</string>
+    <string name = "please_open_camera_permissions">Please open camera permissions</string>
+    <string name = "camera_permission_disabled">Camera permissions disabled</string>
+    <string name = "please_open_storage_permissions">Please open storage permissions</string>
+    <string name = "storage_permissions_disabled">Storage permissions disabled</string>
+    <string name = "please_open_location_permissions">Please open location permissions</string>
+    <string name="please_open_media_permissions">Please open media(images and videos) permissions</string>
+    <string name = "location_permissions_disabled">location permissions disabled</string>
+    <string name = "you_can_only_select_up">You can only select up to 6 images</string>
+
 
 </resources>

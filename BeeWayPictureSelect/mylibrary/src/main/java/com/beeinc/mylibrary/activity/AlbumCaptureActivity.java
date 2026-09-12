@@ -21,6 +21,7 @@ import com.beeinc.mylibrary.scale.Layout;
 import com.beeinc.mylibrary.scale.ScreenUtil;
 import com.beeinc.mylibrary.util.FileUtil;
 import com.beeinc.mylibrary.util.ImageDealUtil;
+import com.beeinc.mylibrary.util.PermissionUtil;
 import com.beeinc.mylibrary.views.Tutorial3View;
 import com.test.RemapHelper;
 import com.yanzhenjie.album.AlbumFile;

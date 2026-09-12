@@ -17,7 +17,8 @@
 <resources>
     <string name="album_loading">Loading&#8230;</string>
     <string name="album_converting">Loading&#8230;</string>
-    <string name="album_thumbnail">Generating thumbnails&#8230;</string>
+<!--    <string name="album_thumbnail">Generating thumbnails&#8230;</string>-->
+    <string name="album_thumbnail">Creating thumbnails&#8230;</string>-->
 
     <string name="album_not_found_image">No image items found</string>
     <string name="album_not_found_video">No video items found</string>
@@ -38,7 +39,10 @@
     <string name="album_check_image_little">Please select a image item.</string>
     <string name="album_check_video_little">Please select a video item.</string>
     <string name="album_check_album_little">Please select a media item.</string>
-    <string name="album_menu_finish">Finish</string>
+    <string name="album_menu_finish">Done</string>
+    <string name="album_album">Album</string>
+    <string name="album_preview">Preview</string>
+
     <string name="album_check">Selected</string>
 
     <string name="album_title_permission_failed">Permission denied</string>

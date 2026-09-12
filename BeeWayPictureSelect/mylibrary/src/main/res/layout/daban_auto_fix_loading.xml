@@ -24,7 +24,7 @@
         android:layout_height="66px"
         android:layout_marginTop="76px"
         android:textSize="18px"
-        android:text="修图中..."
+        android:text="@string/enhancing"
         android:textColor="#ffffff"
         android:gravity="center"
         />

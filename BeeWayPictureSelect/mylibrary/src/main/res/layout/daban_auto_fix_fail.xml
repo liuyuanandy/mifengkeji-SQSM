@@ -30,7 +30,7 @@
             android:layout_height="66px"
             android:layout_marginTop="76px"
             android:textSize="18px"
-            android:text="修图失败"
+            android:text="@string/enhancing_failed"
             android:textColor="#ffffff"
             android:gravity="center"
             />
@@ -40,7 +40,7 @@
             android:layout_height="40px"
             android:layout_marginTop="114px"
             android:textSize="14px"
-            android:text="图片未识别出石材"
+            android:text="@string/stones_not_detected"
             android:textColor="@color/colorB3B3B3"
             android:gravity="center"
             />

@@ -1,15 +1,11 @@
 package com.beeinc.mylibrary.util;
 
-import android.app.Activity;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import com.beeinc.mylibrary.bean.CategoryType;
 import com.beeinc.mylibrary.bean.UploadFile;
 import com.beeinc.mylibrary.dialog.InputFixPictureInfoDialog;
 import com.beeinc.mylibrary.dialog.LoadingDialogFragment;
-import com.beeinc.mylibrary.dialog.PermissionObjectDialog;
 import com.beeinc.mylibrary.dialog.QuitFixDialog;
 
 import java.util.ArrayList;
@@ -90,20 +86,5 @@ public class DialogUtil {
         dialog.lasttimeShow = System.currentTimeMillis();
         return dialog;
     }
-
-    //显示权限目的提示弹窗
-    public synchronized static PermissionObjectDialog showPermissionObjectiveDialog(Activity context, int type){
-        PermissionObjectDialog permissionObjectDialog = new PermissionObjectDialog(context);
-        permissionObjectDialog.setType(type);
-        permissionObjectDialog.show();
-        return permissionObjectDialog;
-    }
-    public static void dismissDialogFragment(DialogFragment dialogFragment){
-        if(dialogFragment!=null&&dialogFragment.isAdded()){
-            Log.e("------------->","isAdded");
-            dialogFragment.dismiss();
-        }else{
-            Log.e("------------->","not added");
-        }
-    }}
+}
 

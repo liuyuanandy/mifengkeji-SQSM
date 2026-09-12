@@ -2,6 +2,7 @@ package com.beeinc.SQSB;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.multidex.MultiDex;
 
 import com.beeinc.mylibrary.MediaLoader;

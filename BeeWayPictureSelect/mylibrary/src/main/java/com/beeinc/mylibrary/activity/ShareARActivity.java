@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ShareARActivity extends Activity {
 
     private View root_view,v_back,v_line_share_left,v_line_share_right,v_wx_friend,v_wx_friends;
-    private TextView tv_share,tv_wx_friend,tv_wx_friends;
+    private TextView tv_share,tv_wx_friend,tv_wx_friends,tv_cancel;
     private ImageView iv_wx_friend,iv_wx_friends;
     private ArrayList<View> scaleViews = new ArrayList<View>();
     private ArrayList<View> scaleTextViews = new ArrayList<View>();
@@ -66,6 +66,7 @@ public class ShareARActivity extends Activity {
         tv_share = findViewById(R.id.tv_share);
         tv_wx_friend = findViewById(R.id.tv_wx_friend);
         tv_wx_friends = findViewById(R.id.tv_wx_friends);
+        tv_cancel = findViewById(R.id.tv_cancel);
         iv_wx_friend = findViewById(R.id.iv_wx_friend);
         iv_wx_friends = findViewById(R.id.iv_wx_friends);
     }
@@ -84,6 +85,7 @@ public class ShareARActivity extends Activity {
         scaleTextViews.add(tv_share);
         scaleTextViews.add(tv_wx_friend);
         scaleTextViews.add(tv_wx_friends);
+        scaleTextViews.add(tv_cancel);
         FrameScaleUtil.scale(scaleViews, FrameScaleUtil.X_LEFT, FrameScaleUtil.Y_TOP, FrameScaleUtil.TYPE_BASIC);
         FrameScaleUtil.scale(scaleTextViews, FrameScaleUtil.X_LEFT, FrameScaleUtil.Y_TOP, FrameScaleUtil.TYPE_TEXT_VIEW);
     }
@@ -104,6 +106,7 @@ public class ShareARActivity extends Activity {
                 }
                 if(v.getId()== R.id.v_wx_friends){
                     if (api.getWXAppSupportAPI() >= Build.TIMELINE_SUPPORTED_SDK_INT) {//是否支持发送到朋友圈
+
 //                    shareToWeixin(2,filePath,code,specs,price,remark);
                         Intent intent = new Intent();
                         intent.putExtra("type", "wx_friends");
@@ -114,12 +117,6 @@ public class ShareARActivity extends Activity {
                         return;
                     }
                 }
-//                if(v.getId()== R.id.v_qq){
-//                    Intent intent = new Intent();
-//                    intent.putExtra("type", "qq");
-//                    setResult(RESULT_OK,intent);
-//                    finish();
-//                }
                 if(v.getId()== R.id.tv_cancel){
                     finish();
                 }
@@ -133,6 +130,7 @@ public class ShareARActivity extends Activity {
         };
         v_wx_friend.setOnClickListener(listener);
         v_wx_friends.setOnClickListener(listener);
+        tv_cancel.setOnClickListener(listener);
         v_back.setOnClickListener(listener);
         root_view.setOnClickListener(listener);
     }

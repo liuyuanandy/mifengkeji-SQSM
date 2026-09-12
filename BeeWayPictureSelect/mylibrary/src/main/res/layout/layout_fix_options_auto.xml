@@ -22,7 +22,7 @@
         android:layout_marginLeft="504px"
         android:layout_marginTop="40px"
         android:gravity="center"
-        android:text = "一  键  修  图"
+        android:text = "@string/auto_enhancing"
         android:textSize="26px"
         android:textColor="@color/colorFFFFFF"
         android:background="@drawable/shape_19"

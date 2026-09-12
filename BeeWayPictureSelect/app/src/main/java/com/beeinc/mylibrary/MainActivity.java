@@ -1,8 +1,6 @@
 package com.beeinc.mylibrary;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -21,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.beeinc.mylibrary.R.id;
 import com.beeinc.mylibrary.activity.ARActivity;
 import com.beeinc.mylibrary.activity.AlbumCaptureActivity;
 import com.beeinc.mylibrary.activity.CaptureActivity;
@@ -31,9 +30,7 @@ import com.beeinc.mylibrary.activity.UploadActivity;
 import com.beeinc.mylibrary.activity.VideoPlayActivity;
 import com.beeinc.mylibrary.bean.CategoryType;
 import com.beeinc.mylibrary.bean.UploadFile;
-import com.beeinc.mylibrary.dialog.PermissionObjectDialog;
 import com.beeinc.mylibrary.receiver.BeeIncReceiverMain;
-import com.beeinc.mylibrary.util.DialogUtil;
 import com.beeinc.mylibrary.util.FileInfo;
 import com.beeinc.mylibrary.scale.ScreenUtil;
 import com.beeinc.mylibrary.util.FileUtil;
@@ -91,7 +88,6 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
     private String albumPath;//图片裁剪路径
     private int getCameraAndAlbumPermissionFor;//1.多图上传，2.图片裁剪
 
-    private PermissionObjectDialog permissionObjectDialog;
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -106,6 +102,7 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
             }
         }
     };
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,8 +118,8 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         if(!isInitAlbum){
             initAlbum();
         }
-        tv_upload_pictures = findViewById(R.id.tv_upload_pictures);
-        testcut = findViewById(R.id.testcut);
+        tv_upload_pictures = findViewById(id.tv_upload_pictures);
+        testcut = findViewById(id.testcut);
         button_jingixangpai = findViewById(R.id.button_jingixangpai);
         button_ar = findViewById(R.id.button_ar);
         cut_capture = findViewById(R.id.cut_capture);
@@ -147,7 +144,6 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         File videDirFile = new File(videosCacheDir);
         FileUtil.deleteFileDirectory(videDirFile);
     }
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private void initReceiver(){
         receiver =new BeeIncReceiverMain();
         IntentFilter filter= new IntentFilter();
@@ -156,18 +152,14 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         filter.addAction("com.beeinc.album.takpicture.album");
         filter.addAction("com.beeinc.select.video");
         filter.addAction("com.beeinc.select.phone.album");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
-
-        } else {
-            this.registerReceiver(receiver, filter);
-        }
+        registerReceiver(receiver,filter);
     }
     public void initListener(){
         OnClickListener listener = new OnClickListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View view) {
-                if(view.getId()==R.id.tv_upload_pictures){
+                if(view.getId()== id.tv_upload_pictures){
                     String saveDir = FileUtil.getCacheSaveImagesDir(MainActivity.this);
                     CategoryType categoryType = new CategoryType();
                     categoryType.setCategory("测试");
@@ -186,21 +178,22 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                         e.printStackTrace();
                     }
                     GetMultipleAlbumPath(saveDir,6,array.toString());
+
                 }
-                if(view.getId()==R.id.testcut){
-//                        Intent in = new Intent();
+                if(view.getId()== id.testcut){
+                    Intent in = new Intent();
 //                        in.putExtra("start_type", 1);
 //                        in.putExtra("filePath",FileUtil.createAndroidQFilePath(MainActivity.this,"pictures"));
 //                        in.setClass(MainActivity.this, CutPictureActivity.class );
 //                        startActivity(in);
                 }
-                if(view.getId()==R.id.button_jingixangpai){
+                if(view.getId()== id.button_jingixangpai){
                     Intent jingxiangpai = new Intent();
                     jingxiangpai.putExtra("start_type", 2);
                     jingxiangpai.setClass(MainActivity.this, CaptureActivity.class);
                     startActivity(jingxiangpai);
                 }
-                if(view.getId()==R.id.button_ar){
+                if(view.getId()== id.button_ar){
                     Intent scale = new Intent();
                     scale.setClass(MainActivity.this, ARActivity.class);
                     scale.putExtra("fileFsPath", Environment.getExternalStorageDirectory()+"/test_fs.png");
@@ -208,7 +201,7 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                     Log.e("---------------------->","路径"+Environment.getExternalStorageDirectory()+"/test_fs.png");
                     startActivity(scale);
                 }
-                if(view.getId()==R.id.cut_capture){
+                if(view.getId()== id.cut_capture){
                     String filePath;
                     if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
                         filePath = FileUtil.getCacheSaveImagesDir(MainActivity.this);
@@ -217,26 +210,26 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                     }
                     GetAlbumPathFromCut(filePath);
                 }
-                if(view.getId()==R.id.duihua_capture){
+                if(view.getId()== id.duihua_capture){
                     Intent duihua = new Intent();
                     duihua.putExtra("start_type", 3);
                     duihua.setClass(MainActivity.this, CaptureActivity.class);
                     startActivity(duihua);
                 }
-                if(view.getId()==R.id.share){
+                if(view.getId()== id.share){
                     Intent share = new Intent();
                     share.setClass(MainActivity.this, ShareActivity.class);
                     startActivity(share);
                 }
-                if(view.getId()==R.id.upload){
+                if(view.getId()== id.upload){
                     upload();
                 }
-                if(view.getId()==R.id.showNavigationButton){
+                if(view.getId()== id.showNavigationButton){
                     showSystemUI();
-
                 }
-                if(view.getId()==R.id.hideNavigationButton){
+                if(view.getId()== id.hideNavigationButton){
                     hideSystemUI();
+
                 }
             }
         };
@@ -373,9 +366,6 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         PermissionUtil.PermissionGrantResutListener listener = new PermissionUtil.PermissionGrantResutListener() {
             @Override
             public void grantSuccess(PermissionUtil.TYPE type) {
-                if(permissionObjectDialog!=null){
-                    permissionObjectDialog.dismiss();
-                }
                 if(type.equals(PermissionUtil.TYPE.CAMERA)){
                     getPermissionOfStorage();
                 }
@@ -387,27 +377,24 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                         cutCapture(albumPath);
                     }
                 }
-                if(type.equals(PermissionUtil.TYPE.LOCATION)){
-                    boolean isAndroid13 = SystemUtil.getIsHigherThanAndroidTIRAMISU();
-                    if(isAndroid13){
-                        boolean b = PermissionUtil.isHavePermission(MainActivity.this,PermissionUtil.TYPE.LOCATION_BACK);
-                        if(!b){
-                            PermissionUtil.startRequestPermission(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK);
-                            Toast.makeText(MainActivity.this,"请选择'始终允许'，以获取更好的位置服务",Toast.LENGTH_LONG).show();
-                        }
-                    }else{
-                        LocationPermissionResult("OK");
-                    }
-                }
-                if(type.equals(PermissionUtil.TYPE.LOCATION_BACK)){
-                    LocationPermissionResult("OK");
-                }
+//                if(type.equals(PermissionUtil.TYPE.LOCATION)){
+//                    boolean isAndroid13 = SystemUtil.getIsHigherThanAndroidTIRAMISU();
+//                    if(isAndroid13){
+//                        boolean b = PermissionUtil.isHavePermission(MainActivity.this,PermissionUtil.TYPE.LOCATION_BACK);
+//                        if(!b){
+//                            PermissionUtil.startRequestPermission(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK);
+//                            Toast.makeText(MainActivity.this,"请选择'始终允许'，以获取更好的位置服务",Toast.LENGTH_LONG).show();
+//                        }
+//                    }else{
+//                        LocationPermissionResult("OK");
+//                    }
+//                }
+//                if(type.equals(PermissionUtil.TYPE.LOCATION_BACK)){
+//                    LocationPermissionResult("OK");
+//                }
             }
             @Override
             public void grantFailed(PermissionUtil.TYPE type) {
-                if(permissionObjectDialog!=null){
-                    permissionObjectDialog.dismiss();
-                }
                 if(type.equals(PermissionUtil.TYPE.CAMERA)){
                     boolean isCanShow = PermissionUtil.getIsCanShowRequesPermissionRationable(MainActivity.this, PermissionUtil.TYPE.CAMERA);
                     if (!isCanShow) {
@@ -427,32 +414,32 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
 
                     }
                 }
-                if(type.equals(PermissionUtil.TYPE.LOCATION)){
-                    LocationPermissionResult("NO");
-                    boolean isCanShow = PermissionUtil.getIsCanShowRequesPermissionRationable(MainActivity.this, PermissionUtil.TYPE.LOCATION);
-                    if (!isCanShow) {
-                        Toast.makeText(MainActivity.this,"请打开位置权限",Toast.LENGTH_LONG).show();
-                        PermissionUtil.toAppSelfSetting(MainActivity.this);
-                    }else{
-                        Toast.makeText(MainActivity.this,"位置权限已禁用",Toast.LENGTH_LONG).show();
-                    }
-                }
-                if(type.equals(PermissionUtil.TYPE.LOCATION_BACK)) {
-                    LocationPermissionResult("NO");
-                    boolean isCanShow = PermissionUtil.getIsCanShowRequesPermissionRationable(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK);
-                    if (!isCanShow) {
-                        Toast.makeText(MainActivity.this,"请打开位置权限",Toast.LENGTH_LONG).show();
-                        PermissionUtil.toAppSelfSetting(MainActivity.this);
-                    }else{
-                        Toast.makeText(MainActivity.this,"位置权限已禁用",Toast.LENGTH_LONG).show();
-                    }
-                }
+//                if(type.equals(PermissionUtil.TYPE.LOCATION)){
+//                    LocationPermissionResult("NO");
+//                    boolean isCanShow = PermissionUtil.getIsCanShowRequesPermissionRationable(MainActivity.this, PermissionUtil.TYPE.LOCATION);
+//                    if (!isCanShow) {
+//                        Toast.makeText(MainActivity.this,"请打开位置权限",Toast.LENGTH_LONG).show();
+//                        PermissionUtil.toAppSelfSetting(MainActivity.this);
+//                    }else{
+//                        Toast.makeText(MainActivity.this,"位置权限已禁用",Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//                if(type.equals(PermissionUtil.TYPE.LOCATION_BACK)) {
+//                    LocationPermissionResult("NO");
+//                    boolean isCanShow = PermissionUtil.getIsCanShowRequesPermissionRationable(MainActivity.this, PermissionUtil.TYPE.LOCATION_BACK);
+//                    if (!isCanShow) {
+//                        Toast.makeText(MainActivity.this,"请打开位置权限",Toast.LENGTH_LONG).show();
+//                        PermissionUtil.toAppSelfSetting(MainActivity.this);
+//                    }else{
+//                        Toast.makeText(MainActivity.this,"位置权限已禁用",Toast.LENGTH_LONG).show();
+//                    }
+//                }
             }
         };
         PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.CAMERA,listener);
         PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.STORAGE,listener);
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION,listener);
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION_BACK,listener);
+//        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION,listener);
+//        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION_BACK,listener);
 
 
     }
@@ -650,11 +637,9 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         startActivity(cut_capture);
     }
     private void getPermissionOfCamera(){
-        permissionObjectDialog = DialogUtil.showPermissionObjectiveDialog(this,0);
         PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA);
     }
     private void getPermissionOfStorage(){
-        permissionObjectDialog = DialogUtil.showPermissionObjectiveDialog(this,2);
         PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.STORAGE);
     }
     @Override
@@ -741,16 +726,15 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
 
     //unity调用，判断是否有定位权限
     public void RequestLocationPermission(){
-        if(!PermissionUtil.isLocServiceEnable(this)){
-            Toast.makeText(this,"请开启定位服务",Toast.LENGTH_SHORT).show();
-            LocationPermissionResult("NO");
-            return;
-        }
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.LOCATION);
+//        if(!PermissionUtil.isLocServiceEnable(this)){
+//            Toast.makeText(this,"请开启定位服务",Toast.LENGTH_SHORT).show();
+//            LocationPermissionResult("NO");
+//            return;
+//        }
+//        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.LOCATION);
     }
     private void LocationPermissionResult(String result){
         //reuslt: OK 获取到权限，NO 未获取到权限,
-        UnityPlayer.UnitySendMessage("IOsReciveObj","LocationPermissionResult",result);
+//        UnityPlayer.UnitySendMessage("IOsReciveObj","LocationPermissionResult",result);
     }
-
 }
