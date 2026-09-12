@@ -1,3 +1,0 @@
-D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/BeeWayPictureSelect/libnative/.cxx/Debug/q4613w2y/x86/CMakeFiles/detection_based_tracker.dir
-D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/BeeWayPictureSelect/libnative/.cxx/Debug/q4613w2y/x86/CMakeFiles/edit_cache.dir
-D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/BeeWayPictureSelect/libnative/.cxx/Debug/q4613w2y/x86/CMakeFiles/rebuild_cache.dir

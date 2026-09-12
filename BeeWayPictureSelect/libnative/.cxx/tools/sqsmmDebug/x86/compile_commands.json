@@ -1,7 +1,0 @@
-[
-{
-  "directory": "D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/BeeWayPictureSelect/libnative/.cxx/Debug/q4613w2y/x86",
-  "command": "E:\\android\\Sdk\\ndk\\29.0.14206865\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android21 --sysroot=E:/android/Sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Ddetection_based_tracker_EXPORTS -I\"D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/BeeWayPictureSelect/libnative/jni\" -isystem \"D:/BaiduNetdiskDownload/beeway company comptuer projects/shiquanshimei/shiquanshimei/sdk/native/jni/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -std=gnu++11 -o CMakeFiles\\detection_based_tracker.dir\\Helper_jni.cpp.o -c \"D:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\jni\\Helper_jni.cpp\"",
-  "file": "D:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\jni\\Helper_jni.cpp"
-}
-]
