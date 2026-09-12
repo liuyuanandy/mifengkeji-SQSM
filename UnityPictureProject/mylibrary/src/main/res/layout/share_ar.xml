@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        <View
+            android:id ="@+id/v_back"
+            android:layout_width="380px"
+            android:layout_height="200px"
+            android:background="#ffffff"
+            ></View>
+        <View
+            android:id = "@+id/v_line_share_left"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="24px"
+            android:layout_marginTop="30px"
+            android:background="#f2f2f2"/>
+        <View
+            android:id = "@+id/v_line_share_right"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="256px"
+            android:layout_marginTop="30px"
+            android:background="#f2f2f2"/>
+        <TextView
+            android:id = "@+id/tv_share"
+            android:layout_width="100px"
+            android:layout_height="30px"
+            android:layout_marginLeft="140px"
+            android:layout_marginTop="18px"
+            android:text = "分享至"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666666"
+            />
+        <View
+            android:id = "@+id/v_wx_friend"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="12px"
+            android:layout_marginTop="68px"/>
+        <ImageView
+            android:id = "@+id/iv_wx_friend"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="48px"
+            android:layout_marginTop="68px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_wx_friend"
+            />
+        <TextView
+            android:id = "@+id/tv_wx_friend"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="12px"
+            android:layout_marginTop="113px"
+            android:text = "微信好友"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <View
+            android:id = "@+id/v_wx_friends"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="130px"
+            android:layout_marginTop="68px"/>
+        <ImageView
+            android:id = "@+id/iv_wx_friends"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="166px"
+            android:layout_marginTop="68px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_wx_friends"
+            />
+        <TextView
+            android:id = "@+id/tv_wx_friends"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="130px"
+            android:layout_marginTop="113px"
+            android:text = "朋友圈"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <View
+            android:id = "@+id/v_qq"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="248px"
+            android:layout_marginTop="68px"/>
+        <ImageView
+            android:id = "@+id/iv_qq"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="284px"
+            android:layout_marginTop="68px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_qq"
+            />
+        <TextView
+            android:id = "@+id/tv_qq"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="248px"
+            android:layout_marginTop="113px"
+            android:text = "QQ"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <TextView
+            android:id = "@+id/tv_cancel"
+            android:layout_width="380px"
+            android:layout_height="45px"
+            android:layout_marginTop="163px"
+            android:text = "取消"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666666"
+            android:background="#f0f0f0"
+            />
+    </FrameLayout>
+</FrameLayout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id = "@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1C1C1C"
+    >
+    <com.beeinc.SQSB.views.ImageCutView
+        android:id = "@+id/cutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id = "@+id/tv_hint_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        android:text = "@string/cut_hint_title"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:gravity="bottom"
+
+        />
+    <TextView
+        android:id ="@+id/tv_hint_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="45px"
+        android:text = "@string/cut_hint_desc"
+        android:textSize="12px"
+        android:textColor="#9b9b9b"
+        />
+    <TextView
+        android:id = "@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:text = "取消"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:layout_gravity="right"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+        <View
+            android:id = "@+id/v_bottom_back"
+            android:layout_width="match_parent"
+            android:layout_height="46px"
+            android:background="@color/color2B2B2B"/>
+        <View
+            android:id = "@+id/v_rotate"
+            android:layout_width="95px"
+            android:layout_height="46px"/>
+        <ImageView
+            android:id = "@+id/iv_rotate"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="13px"
+            />
+        <TextView
+            android:id = "@+id/tv_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:layout_marginLeft="50px"
+            android:text = "旋转"
+            android:textColor="#9b9b9b"
+            android:textSize="15px"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id = "@+id/tv_share"
+            android:layout_width="70px"
+            android:layout_height="35px"
+            android:layout_marginTop="6px"
+            android:layout_marginRight="12px"
+            android:text = "分享"
+            android:textSize="15px"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:background="@drawable/shape_1"
+            android:textColor="#ffffff"
+            />
+        <TextView
+            android:id = "@+id/tv_recapture"
+            android:layout_width="70px"
+            android:layout_height="46px"
+            android:layout_marginRight="228px"
+            android:text = "重拍"
+            android:textSize="15px"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            />
+        <TextView
+            android:id = "@+id/tv_save_album"
+            android:layout_width="128px"
+            android:layout_height="46px"
+            android:layout_marginRight="100px"
+            android:text = "保存到相册"
+            android:textSize="15px"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            />
+        <TextView
+            android:id = "@+id/tv_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:layout_marginTop="100px"
+            android:text = "预览"
+            android:textSize="15px"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="#00d1cf"
+            android:visibility="invisible"
+            />
+    </FrameLayout>
+    <ImageView
+        android:id = "@+id/iv_share"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        />
+</FrameLayout>

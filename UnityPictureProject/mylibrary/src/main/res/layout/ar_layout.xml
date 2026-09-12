@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
+    >
+    <com.beeinc.SQSB.views.Tutorial3View
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:id="@+id/cameraView"
+        opencv:show_fps="false"
+        opencv:camera_id="any" />
+    <ImageView
+        android:id = "@+id/iv_ar_fs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+    <ImageView
+        android:id = "@+id/iv_ar_kt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+    <View
+        android:id = "@+id/v_left"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:background="#000000"/>
+    <View
+        android:id = "@+id/v_right"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:background="#000000"
+        />
+    <ImageView
+        android:id = "@+id/iv_close"
+        android:layout_width="36px"
+        android:layout_height="36px"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="40px"
+        />
+    <FrameLayout
+        android:id = "@+id/frame_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24px"
+        android:layout_gravity="right|center_vertical"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id = "@+id/iv_single"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id = "@+id/iv_vertical_two"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginTop="52px"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id = "@+id/iv_capture"
+            android:layout_width="52px"
+            android:layout_height="52px"
+            android:layout_marginTop="114px"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id = "@+id/iv_horizontal_two"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginTop="188px"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id = "@+id/iv_four"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginTop="240px"
+            android:layout_gravity="center_horizontal"
+            />
+    </FrameLayout>
+
+</FrameLayout>

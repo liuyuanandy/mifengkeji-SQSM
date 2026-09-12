@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/frame_jiaozhen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible">
+    <com.beeinc.SQSB.views.JiaozhenView
+        android:id = "@+id/jiaozhenView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></com.beeinc.SQSB.views.JiaozhenView>
+
+    <FrameLayout
+        android:id = "@+id/frame_jiaozhen_do"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"
+        >
+        <ImageView
+            android:id = "@+id/iv_jiaozhen_do"
+            android:layout_width="150px"
+            android:layout_height="69px"
+            android:layout_marginLeft="565px"
+            android:scaleType="fitXY"
+            android:src = "@mipmap/icon_fix_do_jiaozheng_back"
+            ></ImageView>
+        <TextView
+            android:id = "@+id/tv_jiaozhen_do"
+            android:layout_width="134px"
+            android:layout_height="50px"
+            android:layout_marginLeft="572px"
+            android:layout_marginTop="8px"
+            android:text = "执行矫正"
+            android:textSize="20px"
+            android:gravity="center"
+            android:textColor="@color/colorFFFFFF"
+            ></TextView>
+    </FrameLayout>
+    <FrameLayout
+        android:id = "@+id/frame_jiaozhen_quit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="invisible"
+        android:layout_marginBottom="10dp"
+        >
+        <ImageView
+            android:id = "@+id/iv_jiaozhen_quit_back"
+            android:layout_width="150px"
+            android:layout_height="69px"
+            android:layout_marginLeft="565px"
+            android:scaleType="fitXY"
+            android:src = "@mipmap/icon_fix_jiaozheng_chexiao"
+            ></ImageView>
+        <ImageView
+            android:id = "@+id/iv_jiaozhen_quit"
+            android:layout_width="26px"
+            android:layout_height="26px"
+            android:layout_marginLeft="596px"
+            android:layout_marginTop="18px"
+            android:scaleType="fitXY"
+            android:src = "@mipmap/b_icon_quit"></ImageView>
+
+        <TextView
+            android:id = "@+id/tv_jiaozhen_quit"
+            android:layout_width="70px"
+            android:layout_height="50px"
+            android:layout_marginLeft="632px"
+            android:layout_marginTop="8px"
+            android:text = "撤销"
+            android:textSize="20px"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorFFFFFF"
+            ></TextView>
+    </FrameLayout>
+</FrameLayout>

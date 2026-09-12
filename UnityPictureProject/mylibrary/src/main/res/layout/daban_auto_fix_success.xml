@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/frame_auto_success"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <FrameLayout
+        android:id = "@+id/frame_auto_success_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        <View
+            android:id = "@+id/v_auto_success_back"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:background="@drawable/shape_21"
+            ></View>
+        <ImageView
+            android:id ="@+id/iv_auto_success_picture"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="24px"
+            android:src = "@mipmap/b_icon_auto_fix_success"
+            ></ImageView>
+        <TextView
+            android:id = "@+id/tv_auto_success_text"
+            android:layout_width="150px"
+            android:layout_height="66px"
+            android:layout_marginTop="76px"
+            android:textSize="18px"
+            android:text="修图完成"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            />
+
+    </FrameLayout>
+    <FrameLayout
+        android:id ="@+id/fl_auto_success_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+        <View
+            android:id ="@+id/v_auto_success_bottom_back"
+            android:layout_width="1280px"
+            android:layout_height="56px"></View>
+        <View
+            android:id = "@+id/v_auto_success_options_back"
+            android:layout_width="200px"
+            android:layout_height="36px"
+            android:layout_marginLeft="540px"
+            android:background="@drawable/shape_20"
+            ></View>
+        <View
+            android:id = "@+id/v_auto_success_bottom_quit"
+            android:layout_width="100px"
+            android:layout_height="36px"
+            android:layout_marginLeft="540px"
+            ></View>
+        <ImageView
+            android:id = "@+id/iv_auto_success_quit"
+            android:layout_width="22px"
+            android:layout_height="22px"
+            android:layout_marginLeft="560px"
+            android:layout_marginTop="7px"
+            android:scaleType="fitXY"
+            android:src = "@mipmap/b_icon_auto_fix_quit"></ImageView>
+        <TextView
+            android:id = "@+id/tv_auto_success_quit"
+            android:layout_width="58px"
+            android:layout_height="36px"
+            android:layout_marginLeft="584px"
+            android:text= "撤销"
+            android:textSize="18px"
+            android:textColor="@color/colorFFFFFF"
+            android:gravity="center_vertical"></TextView>
+        <View
+            android:id = "@+id/v_auto_success_bottom_ok"
+            android:layout_width="100px"
+            android:layout_height="36px"
+            android:layout_marginLeft="640px"
+            ></View>
+        <View
+            android:id="@+id/line_auto_success"
+            android:layout_width="2px"
+            android:layout_height="36px"
+            android:layout_marginLeft="640px"
+            android:background="@color/colorBBBBBB"></View>
+
+        <ImageView
+            android:id = "@+id/iv_auto_success_ok"
+            android:layout_width="22px"
+            android:layout_height="22px"
+            android:layout_marginLeft="660px"
+            android:layout_marginTop="7px"
+            android:src = "@mipmap/b_icon_auto_fix_sure"></ImageView>
+        <TextView
+            android:id = "@+id/tv_auto_success_ok"
+            android:layout_width="58px"
+            android:layout_height="36px"
+            android:layout_marginLeft="684px"
+            android:text= "确认"
+            android:textSize="18px"
+            android:textColor="@color/colorFFFFFF"
+            android:gravity="center_vertical"></TextView>
+    </FrameLayout>
+</FrameLayout>

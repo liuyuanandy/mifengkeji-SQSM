@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1C1C1C"
+    >
+    <com.beeinc.SQSB.views.CutViewForUpload
+        android:id = "@+id/cutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:id = "@+id/tv_hint_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        android:text = "@string/cut_hint_title"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:gravity="bottom"
+
+        />
+    <TextView
+        android:id ="@+id/tv_hint_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="45px"
+        android:text = "@string/cut_hint_desc"
+        android:textSize="12px"
+        android:textColor="#9b9b9b"
+        />
+    <TextView
+        android:id = "@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:text = "取消"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:layout_gravity="right"
+        />
+    <FrameLayout
+        android:id = "@+id/v_bottom_back"
+        android:layout_width="720px"
+        android:layout_height="46px"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="118px">
+        <View
+            android:id = "@+id/v_rotate"
+            android:layout_width="95px"
+            android:layout_height="46px"
+            />
+        <ImageView
+            android:id = "@+id/iv_rotate"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="13px"
+            />
+        <TextView
+            android:id = "@+id/tv_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:layout_marginLeft="50px"
+            android:text = "旋转"
+            android:textColor="#9b9b9b"
+            android:textSize="15px"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id = "@+id/tv_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:text = "预览"
+            android:textSize="15px"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="#00d1cf"
+            android:visibility="invisible"
+            />
+    </FrameLayout>
+    <ScrollView
+        android:id = "@+id/scroll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="108px"
+        android:scrollbars="none"
+        android:layout_gravity="bottom"
+        android:background="@color/color2B2B2B"
+        >
+        <LinearLayout
+            android:id = "@+id/lienar_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id = "@+id/frame_params"
+        android:layout_width="296px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        >
+        <TextView
+            android:id = "@+id/tv_params_title"
+            android:layout_width="296px"
+            android:layout_height="36px"
+            android:text = "请设置产品参数"
+            android:textSize="15px"
+            android:textColor="@color/color9b9b9b"
+            android:gravity="center"
+            />
+        <FrameLayout
+            android:id = "@+id/frame_name"
+            android:layout_width="236px"
+            android:layout_height="34px"
+            android:layout_marginTop="42px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_name_hint"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="14px"
+                android:text = "产品名称"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <EditText
+                android:id = "@+id/et_name"
+                android:layout_width="120px"
+                android:layout_height="34px"
+                android:layout_marginLeft="86px"
+                android:textSize="14px"
+                android:textColor="@color/color9b9b9b"
+                android:text=""
+                android:hint = "请输入产品名称"
+                android:textColorHint="@color/color9b9b9b"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:singleLine="true"
+                />
+            <ImageView
+                android:id = "@+id/iv_delete"
+                android:layout_width="18px"
+                android:layout_height="18px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="210px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_delete_2"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id = "@+id/frame_type"
+            android:layout_width="236px"
+            android:layout_height="34px"
+            android:layout_marginTop="85px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_type_hint"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="14px"
+                android:text = "产品分类"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <TextView
+                android:id = "@+id/tv_type"
+                android:layout_width="120px"
+                android:layout_height="34px"
+                android:layout_marginLeft="86px"
+                android:textSize="14px"
+                android:textColor="#ffffff"
+                android:text="默认类型"
+                android:hint = "请输入产品名称"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                />
+            <ImageView
+                android:id = "@+id/iv_down_sward"
+                android:layout_width="16px"
+                android:layout_height="16px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="212px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_pull_down"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id = "@+id/frame_width"
+            android:layout_width="236px"
+            android:layout_height="34px"
+            android:layout_marginTop="128px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_width"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="14px"
+                android:text = "产品宽度"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <EditText
+                android:id = "@+id/et_width"
+                android:layout_width="120px"
+                android:layout_height="34px"
+                android:layout_marginLeft="86px"
+                android:textSize="14px"
+                android:textColorHint="@color/color9b9b9b"
+                android:textColor="#ffffff"
+                android:text=""
+                android:hint = "请输入产品高度"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:inputType="number"
+                />
+            <TextView
+                android:id = "@+id/tv_width_unit"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="160px"
+                android:textSize="14px"
+                android:text = "mm"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical|right"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id = "@+id/frame_height"
+            android:layout_width="236px"
+            android:layout_height="34px"
+            android:layout_marginTop="171px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_height"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="14px"
+                android:text = "产品高度"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <EditText
+                android:id = "@+id/et_height"
+                android:layout_width="120px"
+                android:layout_height="34px"
+                android:layout_marginLeft="86px"
+                android:textSize="14px"
+                android:textColorHint="@color/color9b9b9b"
+                android:textColor="#ffffff"
+                android:text=""
+                android:hint = "请输入产品宽度"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:inputType="number"
+                />
+            <TextView
+                android:id = "@+id/tv_height_unit"
+                android:layout_width="70px"
+                android:layout_height="34px"
+                android:layout_marginLeft="160px"
+                android:textSize="14px"
+                android:text = "mm"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical|right"
+                />
+        </FrameLayout>
+        <TextView
+            android:id = "@+id/tv_save"
+            android:layout_width="196px"
+            android:layout_height="50px"
+            android:layout_marginTop="300px"
+            android:layout_marginLeft="50px"
+            android:gravity="center"
+            android:background="@drawable/shape_1"
+            android:text = "保存并继续  (1/5)  >>"
+            android:textSize="15px"
+            android:textColor="#ffffff"
+            ></TextView>
+    </FrameLayout>
+</FrameLayout>

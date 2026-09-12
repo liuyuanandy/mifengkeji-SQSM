@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/frame_manu_options"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <include layout = "@layout/layout_fix_manu_jiaozheng"></include>
+    <include layout = "@layout/layout_fix_manu_cut"></include>
+    <include layout = "@layout/layout_fix_manu_tiaose"></include>
+    <include layout = "@layout/layout_fix_manu_tumo"></include>
+    <include layout = "@layout/layout_fix_manu_yinyangse"></include>
+</FrameLayout>

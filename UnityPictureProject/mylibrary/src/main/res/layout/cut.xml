@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1C1C1C"
+    >
+    <com.beeinc.SQSB.views.ImageCutView
+        android:id = "@+id/cutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id = "@+id/tv_hint_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        android:text = "@string/cut_hint_title"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:gravity="bottom"
+
+        />
+    <TextView
+        android:id ="@+id/tv_hint_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="45px"
+        android:text = "@string/cut_hint_desc"
+        android:textSize="12px"
+        android:textColor="#9b9b9b"
+        />
+    <TextView
+        android:id = "@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:text = "取消"
+        android:textSize="18px"
+        android:textColor="#ffffff"
+        android:layout_gravity="right"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+        <FrameLayout
+            android:id = "@+id/frame_width"
+            android:layout_width="338px"
+            android:layout_height="34px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_with"
+                android:layout_width="80px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="15px"
+                android:text = "产品宽度:"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <TextView
+                android:id = "@+id/tv_width_unit"
+                android:layout_width="50px"
+                android:layout_height="34px"
+                android:layout_marginLeft="270px"
+                android:textSize="15px"
+                android:text = "mm"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical|right"
+                />
+            <EditText
+                android:id = "@+id/et_with"
+                android:layout_width="200px"
+                android:layout_height="34px"
+                android:layout_marginLeft="96px"
+                android:textSize="15px"
+                android:textColor="@color/color9b9b9b"
+                android:text="例:1000mm"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:inputType="number"
+                />
+
+        </FrameLayout>
+        <FrameLayout
+            android:id = "@+id/frame_height"
+            android:layout_width="338px"
+            android:layout_height="34px"
+            android:layout_marginTop="44px"
+            android:background="@drawable/shape_3"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/tv_height"
+                android:layout_width="80px"
+                android:layout_height="34px"
+                android:layout_marginLeft="14px"
+                android:textSize="15px"
+                android:text = "产品高度:"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical"
+                />
+            <TextView
+                android:id = "@+id/tv_height_unit"
+                android:layout_width="50px"
+                android:layout_height="34px"
+                android:layout_marginLeft="270px"
+                android:textSize="15px"
+                android:text = "mm"
+                android:textColor="@color/color9b9b9b"
+                android:gravity="center_vertical|right"
+                />
+            <EditText
+                android:id = "@+id/et_height"
+                android:layout_width="200px"
+                android:layout_height="34px"
+                android:layout_marginLeft="96px"
+                android:textSize="15px"
+                android:textColor="@color/color9b9b9b"
+                android:text="例:1000"
+                android:background="@color/translate"
+                android:maxLength="6"
+                android:inputType="number"
+                />
+
+        </FrameLayout>
+        <View
+            android:id = "@+id/v_bottom_back"
+            android:layout_width="match_parent"
+            android:layout_height="46px"
+            android:background="@color/color2B2B2B"
+            android:layout_marginTop="100px"/>
+        <View
+            android:id = "@+id/v_rotate"
+            android:layout_width="95px"
+            android:layout_height="46px"
+            android:layout_marginTop="100px"/>
+        <ImageView
+            android:id = "@+id/iv_rotate"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="113px"
+            />
+        <TextView
+            android:id = "@+id/tv_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="100px"
+            android:text = "旋转"
+            android:textColor="#9b9b9b"
+            android:textSize="15px"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id = "@+id/tv_apply"
+            android:layout_width="70px"
+            android:layout_height="35px"
+            android:layout_marginTop="106px"
+            android:layout_marginRight="12px"
+            android:text = "应用"
+            android:textSize="15px"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:background="@drawable/shape_1"
+            android:textColor="#ffffff"
+            />
+        <View
+            android:id = "@+id/v_save_album"
+            android:layout_width="155px"
+            android:layout_height="46px"
+            android:layout_marginTop="100px"
+            android:layout_marginRight="92px"
+            android:layout_gravity="right"
+            />
+
+        <TextView
+            android:id = "@+id/tv_save_album"
+            android:layout_width="128px"
+            android:layout_height="46px"
+            android:layout_marginTop="100px"
+            android:layout_marginRight="80px"
+            android:text = "同时保存到相册"
+            android:textSize="15px"
+            android:layout_gravity="right"
+            android:gravity="center_vertical"
+            android:textColor="#ffffff"
+            />
+        <ImageView
+            android:id = "@+id/iv_save_album"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_marginRight="220px"
+            android:layout_marginTop="113px"
+            android:layout_gravity="right"
+            />
+        <TextView
+            android:id = "@+id/tv_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="46px"
+            android:layout_marginTop="100px"
+            android:text = "预览"
+            android:textSize="15px"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="#00d1cf"
+            android:visibility="invisible"
+            />
+    </FrameLayout>
+</FrameLayout>

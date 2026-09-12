@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        <View
+            android:id ="@+id/v_back"
+            android:layout_width="380px"
+            android:layout_height="468px"
+            android:background="#ffffff"
+            ></View>
+        <View
+            android:id = "@+id/v_line_title_left"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="24px"
+            android:layout_marginTop="25px"
+            android:background="#f2f2f2"/>
+        <View
+            android:id = "@+id/v_line_title_right"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="256px"
+            android:layout_marginTop="25px"
+            android:background="#f2f2f2"/>
+        <TextView
+            android:id = "@+id/tv_title"
+            android:layout_width="100px"
+            android:layout_height="30px"
+            android:layout_marginLeft="140px"
+            android:layout_marginTop="12px"
+            android:text = "文字信息"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666"
+            />
+        <View
+            android:id = "@+id/v_content"
+            android:layout_width="356px"
+            android:layout_height="200px"
+            android:layout_marginLeft="12px"
+            android:layout_marginTop="45px"
+            android:background="#f1f1f1"/>
+        <TextView
+            android:id = "@+id/tv_code_hint"
+            android:layout_width="45px"
+            android:layout_height="38px"
+            android:layout_marginLeft="28px"
+            android:layout_marginTop="55px"
+            android:text = "编号:"
+            android:textSize="18px"
+            android:gravity="center|right"
+            android:textColor="@color/color9b9b9b"
+            />
+        <EditText
+            android:id ="@+id/et_code"
+            android:layout_width="280px"
+            android:layout_height="38px"
+            android:layout_marginLeft="75px"
+            android:layout_marginTop="55px"
+            android:text = ""
+            android:textSize="16px"
+            android:gravity="center_vertical"
+            android:textColor="@color/color9b9b9b"
+            android:background="#ffffff"
+            android:hint="请输入编号信息(选填)"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
+            android:textColorHint="@color/color9b9b9b"
+            />
+        <TextView
+            android:id = "@+id/tv_guige"
+            android:layout_width="45px"
+            android:layout_height="38px"
+            android:layout_marginLeft="28px"
+            android:layout_marginTop="103px"
+            android:text = "规格:"
+            android:textSize="18px"
+            android:gravity="center|right"
+            android:textColor="@color/color9b9b9b"
+            />
+        <EditText
+            android:id = "@+id/et_guige"
+            android:layout_width="280px"
+            android:layout_height="38px"
+            android:layout_marginLeft="75px"
+            android:layout_marginTop="103px"
+            android:text = ""
+            android:textSize="16px"
+            android:gravity="center_vertical"
+            android:textColor="@color/color9b9b9b"
+            android:background="#ffffff"
+            android:hint="请输入规格信息(选填)"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
+            android:textColorHint="@color/color9b9b9b"
+            />
+        <TextView
+            android:id = "@+id/tv_price_hint"
+            android:layout_width="45px"
+            android:layout_height="38px"
+            android:layout_marginLeft="28px"
+            android:layout_marginTop="151px"
+            android:text = "价格:"
+            android:textSize="18px"
+            android:gravity="center|right"
+            android:textColor="@color/color9b9b9b"
+            />
+        <EditText
+            android:id = "@+id/et_price"
+            android:layout_width="280px"
+            android:layout_height="38px"
+            android:layout_marginLeft="75px"
+            android:layout_marginTop="151px"
+            android:text = ""
+            android:textSize="16px"
+            android:gravity="center_vertical"
+            android:textColor="@color/color9b9b9b"
+            android:background="#ffffff"
+            android:hint="请输入价格信息(选填)"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
+            android:textColorHint="@color/color9b9b9b"
+            />
+        <TextView
+            android:id = "@+id/tv_remark_hint"
+            android:layout_width="45px"
+            android:layout_height="38px"
+            android:layout_marginLeft="28px"
+            android:layout_marginTop="199px"
+            android:text = "备注:"
+            android:textSize="18px"
+            android:gravity="center|right"
+            android:textColor="@color/color9b9b9b"
+            />
+        <EditText
+            android:id = "@+id/et_ramark"
+            android:layout_width="280px"
+            android:layout_height="38px"
+            android:layout_marginLeft="75px"
+            android:layout_marginTop="199px"
+            android:text = ""
+            android:textSize="16px"
+            android:gravity="center_vertical"
+            android:textColor="@color/color9b9b9b"
+            android:background="#ffffff"
+            android:hint="请输入备注信息(选填)"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
+            android:textColorHint="@color/color9b9b9b"
+            />
+
+        <View
+            android:id = "@+id/v_line_share_left"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="24px"
+            android:layout_marginTop="270px"
+            android:background="#f2f2f2"/>
+        <View
+            android:id = "@+id/v_line_share_right"
+            android:layout_width="100px"
+            android:layout_height="2px"
+            android:layout_marginLeft="256px"
+            android:layout_marginTop="270px"
+            android:background="#f2f2f2"/>
+        <TextView
+            android:id = "@+id/tv_share"
+            android:layout_width="100px"
+            android:layout_height="30px"
+            android:layout_marginLeft="140px"
+            android:layout_marginTop="258px"
+            android:text = "分享至"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666666"
+            />
+        <View
+            android:id = "@+id/v_wx_friend"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="12px"
+            android:layout_marginTop="308px"/>
+        <ImageView
+            android:id = "@+id/iv_wx_friend"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="48px"
+            android:layout_marginTop="308px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_wx_friend"
+            />
+        <TextView
+            android:id = "@+id/tv_wx_friend"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="12px"
+            android:layout_marginTop="353px"
+            android:text = "微信好友"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <View
+            android:id = "@+id/v_wx_friends"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="130px"
+            android:layout_marginTop="308px"/>
+        <ImageView
+            android:id = "@+id/iv_wx_friends"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="166px"
+            android:layout_marginTop="308px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_wx_friends"
+            />
+        <TextView
+            android:id = "@+id/tv_wx_friends"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="130px"
+            android:layout_marginTop="353px"
+            android:text = "朋友圈"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <View
+            android:id = "@+id/v_qq"
+            android:layout_width="118px"
+            android:layout_height="83px"
+            android:layout_marginLeft="248px"
+            android:layout_marginTop="308px"/>
+        <ImageView
+            android:id = "@+id/iv_qq"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_marginLeft="284px"
+            android:layout_marginTop="308px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_qq"
+            />
+        <TextView
+            android:id = "@+id/tv_qq"
+            android:layout_width="118px"
+            android:layout_height="38px"
+            android:layout_marginLeft="248px"
+            android:layout_marginTop="353px"
+            android:text = "QQ"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="@color/color9b9b9b"
+            />
+        <TextView
+            android:id = "@+id/tv_cancel"
+            android:layout_width="380px"
+            android:layout_height="45px"
+            android:layout_marginTop="423px"
+            android:text = "取消"
+            android:textSize="18px"
+            android:gravity="center"
+            android:textColor="#666666"
+            android:background="#f0f0f0"
+            />
+    </FrameLayout>
+</FrameLayout>

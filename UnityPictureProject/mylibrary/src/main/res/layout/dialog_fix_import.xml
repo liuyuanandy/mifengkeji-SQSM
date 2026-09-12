@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <View
+        android:id = "@+id/v_back"
+        android:layout_width="324px"
+        android:layout_height="348px"
+        android:background="@drawable/shape_23"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_title"
+        android:layout_width="324px"
+        android:layout_height="36px"
+        android:layout_marginTop="18px"
+        android:textSize="20px"
+        android:text="产品信息"
+        android:gravity="center"
+        android:textColor="@color/color101010"/>
+    <View
+        android:id="@+id/v_name"
+        android:layout_width="278px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="70px"
+        android:background="@color/colorF5F5F5"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_name"
+        android:layout_width="100px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="70px"
+        android:gravity="center"
+        android:textSize="18px"
+        android:text="名称"
+        android:textColor="@color/color101010"/>
+    <EditText
+        android:id = "@+id/et_name"
+        android:layout_width="228px"
+        android:layout_height="48px"
+        android:layout_marginLeft="96px"
+        android:layout_marginTop="70px"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="18px"
+        android:text=""
+        android:hint="石材01"
+        android:textColorHint="@color/color919191"
+        android:background="@color/translate"
+        android:textColor="@color/color101010"/>
+    <View
+        android:id = "@+id/v_type"
+        android:layout_width="278px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="126px"
+        android:background="@color/colorF5F5F5"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_type"
+        android:layout_width="100px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="126px"
+        android:gravity="center"
+        android:textSize="18px"
+        android:text="分类"
+        android:textColor="@color/color101010"/>
+    <TextView
+        android:id = "@+id/tv_type_content"
+        android:layout_width="228px"
+        android:layout_height="48px"
+        android:layout_marginLeft="96px"
+        android:layout_marginTop="126px"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="18px"
+        android:text=""
+        android:hint="分类"
+        android:textColorHint="@color/color919191"
+        android:background="@color/translate"
+        android:textColor="@color/color101010"
+        />
+
+    <View
+        android:id = "@+id/v_width"
+        android:layout_width="278px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="181px"
+        android:background="@color/colorF5F5F5"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_width"
+        android:layout_width="100px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="181px"
+        android:gravity="center"
+        android:textSize="18px"
+        android:text="宽度"
+        android:textColor="@color/color101010"/>
+    <EditText
+        android:id = "@+id/et_width"
+        android:layout_width="228px"
+        android:layout_height="48px"
+        android:layout_marginLeft="96px"
+        android:layout_marginTop="181px"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="18px"
+        android:text=""
+        android:hint="宽度"
+        android:inputType="number"
+        android:textColorHint="@color/color919191"
+        android:background="@color/translate"
+        android:textColor="@color/color101010"
+        />
+    <View
+        android:id="@+id/v_height"
+        android:layout_width="278px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="236px"
+        android:background="@color/colorF5F5F5"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_height"
+        android:layout_width="100px"
+        android:layout_height="48px"
+        android:layout_marginLeft="24px"
+        android:layout_marginTop="236px"
+        android:gravity="center"
+        android:textSize="18px"
+        android:text="高度"
+        android:textColor="@color/color101010"/>
+    <EditText
+        android:id = "@+id/et_height"
+        android:layout_width="228px"
+        android:layout_height="48px"
+        android:layout_marginLeft="96px"
+        android:layout_marginTop="236px"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="18px"
+        android:inputType="number"
+        android:text=""
+        android:hint="高度"
+        android:textColorHint="@color/color919191"
+        android:background="@color/translate"
+        android:textColor="@color/color101010"/>
+    <TextView
+        android:id = "@+id/tv_cancel"
+        android:layout_width="162px"
+        android:layout_height="60px"
+        android:layout_marginTop="288px"
+        android:gravity="center"
+        android:textSize="20px"
+        android:text="取消"
+        android:textColor="@color/color101010"/>
+    <TextView
+        android:id = "@+id/tv_import"
+        android:layout_width="162px"
+        android:layout_height="60px"
+        android:layout_marginLeft="162px"
+        android:layout_marginTop="288px"
+        android:gravity="center"
+        android:textSize="20px"
+        android:text="确定"
+        android:textColor="@color/color00BABA"/>
+</FrameLayout>
