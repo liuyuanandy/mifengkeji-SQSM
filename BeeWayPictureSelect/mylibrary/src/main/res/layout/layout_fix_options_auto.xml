@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id ="@+id/frame_auto_fix_options"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <View
+        android:id ="@+id/v_auto_fix_back"
+        android:layout_width="1280px"
+        android:layout_height="120px"
+        ></View>
+    <View
+        android:id = "@+id/v_auto_fix_line"
+        android:layout_width="1280px"
+        android:layout_height="2px"
+        android:background="@color/color393939"
+        ></View>
+    <TextView
+        android:id = "@+id/tv_auto_fix_deal"
+        android:layout_width="291px"
+        android:layout_height="64px"
+        android:layout_marginLeft="504px"
+        android:layout_marginTop="40px"
+        android:gravity="center"
+        android:text = "一  键  修  图"
+        android:textSize="26px"
+        android:textColor="@color/colorFFFFFF"
+        android:background="@drawable/shape_19"
+
+        ></TextView>
+
+</FrameLayout>

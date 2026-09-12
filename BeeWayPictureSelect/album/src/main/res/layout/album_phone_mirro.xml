@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2017 Yan Zhenjie.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Album.MatchParent"
+    android:id ="@+id/root"
+    android:background="#000000">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id = "@+id/app_bar_layout"
+        >
+        <LinearLayout
+            android:id = "@+id/linear_path"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+            <TextView
+                android:id = "@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text = "最近项目"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:gravity="center"></TextView>
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="5dp"
+                android:src ="@drawable/album_sward_down"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <View
+            android:id = "@+id/v_goback"
+            android:layout_width="85dp"
+            android:layout_height="45dp"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src = "@drawable/icon_back_2"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="38dp"
+            android:text = "退出"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:gravity="center_vertical"></TextView>
+        <TextView
+            android:id = "@+id/tv_finish"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text = "下一步"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/album_shape_1"
+            android:gravity="center"></TextView>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="75dp"
+
+        android:layout_below="@id/app_bar_layout" />
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="75dp"
+        android:layout_below="@id/app_bar_layout"
+        android:background="@color/albumPageLight"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <com.yanzhenjie.album.widget.ColorProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Album.Progress.Loading" />
+
+        <TextView
+            style="@style/Album.WrapContent"
+            android:layout_marginLeft="@dimen/album_dp_20"
+            android:layout_marginStart="@dimen/album_dp_20"
+            android:text="@string/album_loading"
+            android:textColor="@color/albumFontHint"
+            android:textSize="@dimen/album_sp_16" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        >
+        <View
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:id = "@+id/linear_album"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id = "@+id/tv_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "相册"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                ></TextView>
+            <View
+                android:layout_width="35dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                android:layout_gravity="center_horizontal"></View>
+        </LinearLayout>
+        <View
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"/>
+        <LinearLayout
+            android:id = "@+id/linear_capture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "拍照"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                ></TextView>
+            <View
+                android:layout_width="35dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"></View>
+        </LinearLayout>
+        <View
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <TextView
+        android:id = "@+id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="85dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/album_shape_hint"
+        android:text = "选一张照片，快速设计成效果图"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ></TextView>
+</RelativeLayout>

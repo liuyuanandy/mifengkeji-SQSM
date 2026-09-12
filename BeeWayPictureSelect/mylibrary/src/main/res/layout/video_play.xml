@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id = "@+id/re_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#ffffff"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#303030"
+            android:text = "视频编辑"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+        <View
+            android:id = "@+id/v_back"
+            android:layout_width="85dp"
+            android:layout_height="45dp"/>
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitXY"
+            android:src = "@mipmap/icon_back_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="35dp"
+            android:textColor="#303030"
+            android:text = "返回"
+            android:textSize="16sp"
+            android:gravity="center"
+            />
+        <TextView
+            android:id = "@+id/tv_sure"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:textColor="#303030"
+            android:text = "确定"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f2f2f2"
+        android:layout_below="@id/re_title"
+        >
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id = "@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text = "视频太长，请将视频剪辑到60秒以内。"
+            android:textColor="#ffffff"
+            android:background="@drawable/shape_6"
+            android:layout_centerInParent="true"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+</RelativeLayout>

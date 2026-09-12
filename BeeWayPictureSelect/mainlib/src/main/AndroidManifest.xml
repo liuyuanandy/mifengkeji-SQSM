@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--android:allowNativeHeapPointerTagging="false" 解决-->
+    <application
+        android:name = "com.beeinc.SQSB.SQSBApplication"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:allowNativeHeapPointerTagging="false"
+        >
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity android:name="com.beeinc.SQSB.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+        </activity>
+        <!-- 下面的部分和 app module AndroidManifest.xml中的内容相同-->
+    </application>
+</manifest>

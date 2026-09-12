@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/frame_auto_loading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <View
+        android:id = "@+id/v_auto_loading_back"
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:background="@drawable/shape_21"
+        ></View>
+    <ProgressBar
+        android:id = "@+id/progress_auto_loading_bar"
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="24px"
+        ></ProgressBar>
+    <TextView
+        android:id = "@+id/tv_auto_loading_text"
+        android:layout_width="150px"
+        android:layout_height="66px"
+        android:layout_marginTop="76px"
+        android:textSize="18px"
+        android:text="修图中..."
+        android:textColor="#ffffff"
+        android:gravity="center"
+        />
+</FrameLayout>

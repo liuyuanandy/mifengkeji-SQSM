@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">石全石美</string>
+    <string name = "cut_hint_title">拖动四个角对图片进行矫正或裁切</string>
+    <string name = "cut_hint_desc">矫正：当图片中的石材处于矮斜状态时，可用矫正对其调整。裁切：通过裁切，切掉图片中多余部分</string>
+    <string name="btn_plus">+</string>
+
+    <string name="title_camera">Camera</string>
+    <string name="menu_camera_image">Image</string>
+    <string name="menu_camera_video">Video</string>
+
+    <string name="title_image_select">Select image</string>
+    <string name="menu_image_select">Image</string>
+
+    <string name="title_video_select">Select video</string>
+    <string name="menu_video_select">Video</string>
+
+    <string name="title_album_select">Media Album</string>
+    <string name="menu_album_select">Album</string>
+
+    <string name="title_gallery">Gallery</string>
+
+    <string name="menu_preview">Gallery</string>
+    <string name="btn_gallery_preview">Preview Network Image</string>
+    <string name="checkable">Checkable Options</string>
+    <string name="canceled">Canceled</string>
+    <string name="no_selected">Please select, first.</string>
+
+    <string name = "errcode_success">分享成功</string>
+    <string name = "errcode_cancel">分享已取消</string>
+    <string name = "errcode_deny">分享被拒绝</string>
+    <string name = "errcode_unsupported">当前版本不支持</string>
+    <string name = "errcode_unknown">位置错误</string>
+    <string name = "auto_fix_hint">自动：倾斜矫正、去除遮挡物、修复色差</string>
+    <string name = "jiaozheng_hint_1">拖动4个圆点,对齐石材边缘!</string>
+    <string name = "jiaozheng_hint_2">完成对齐后,点击执行矫正!</string>
+    <string name = "jiaozheng_hint_3">矫正完成!</string>
+    <string name = "caijian_hint_1">拖动4条边,选取裁剪区域!</string>
+    <string name = "caijian_hint_2">选取区域后,点击执行裁剪!</string>
+    <string name = "caijian_hint_3">裁剪完成！</string>
+    <string name = "functiton_none">该功能暂未开放</string>
+
+</resources>

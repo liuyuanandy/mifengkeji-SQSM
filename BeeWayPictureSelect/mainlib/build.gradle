@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 35
+    namespace "com.beeinc.SQSB"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 35
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation 'com.android.support:design:28.0.0'
+    implementation project(':album')
+    implementation project(':okhttp')
+    implementation project(':mylibrary')
+    implementation project( ':myaars:opencv-release')
+}

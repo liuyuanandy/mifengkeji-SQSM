@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color000000">
+        >
+        <View
+            android:id = "@+id/v_top"
+            android:layout_width="1280px"
+            android:layout_height="86px"
+            ></View>
+        <View
+            android:id = "@+id/v_return"
+            android:layout_width="176px"
+            android:layout_height="86px"
+            ></View>
+        <ImageView
+            android:id = "@+id/iv_return"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="28px"
+            android:scaleType="fitXY"
+            android:src= "@mipmap/icon_return_white"></ImageView>
+        <TextView
+            android:id = "@+id/tv_return"
+            android:layout_width="160px"
+            android:layout_height="86px"
+            android:layout_marginLeft="55px"
+            android:gravity="center_vertical"
+            android:text = "返  回"
+            android:textSize="26px"
+            android:textColor="@color/colorFFFFFF"></TextView>
+        <TextView
+            android:id = "@+id/tv_import"
+            android:layout_width="135px"
+            android:layout_height="50px"
+            android:layout_marginLeft="1115px"
+            android:layout_marginTop="18px"
+            android:gravity="center"
+            android:text = "导入软件"
+            android:textSize="26px"
+            android:textColor="@color/colorFFFFFF"
+            android:background="@drawable/shape_19"></TextView>
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/color393939"
+        >
+        <ImageView
+            android:id="@+id/iv_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            ></ImageView>
+        <include layout = "@layout/daban_auto_fix"></include>
+        <include layout = "@layout/daban_jiaozhen"></include>
+        <include layout = "@layout/daban_caijian"></include>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            >
+            <ImageView
+                android:id = "@+id/iv_rotate"
+                android:layout_width="64px"
+                android:layout_height="64px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_edit_pictures_rotate"></ImageView>
+        </FrameLayout>
+
+
+    </RelativeLayout>
+    <FrameLayout
+        android:id ="@+id/frame_bottom"
+        android:layout_width="1280px"
+        android:layout_height="290px"
+        >
+        <FrameLayout
+            android:id = "@+id/frame_pictures"
+            android:layout_width="1280px"
+            android:layout_height="110px">
+            <ImageView
+                android:id = "@+id/iv_add"
+                android:layout_width="75px"
+                android:layout_height="75px"
+                android:layout_marginLeft="26px"
+                android:layout_marginTop="17px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_edit_pictures_add"></ImageView>
+
+            <ImageView
+                android:id ="@+id/iv_picture_1"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="130px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id ="@+id/v_picture_1"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="130px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <ImageView
+                android:id ="@+id/iv_picture_2"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="220px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id ="@+id/v_picture_2"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="220px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <ImageView
+                android:id ="@+id/iv_picture_3"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="310px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id ="@+id/v_picture_3"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="310px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_picture_4"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="400px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id = "@+id/v_picture_4"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="400px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_picture_5"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="490px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id = "@+id/v_picture_5"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="490px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_picture_6"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="580px"
+                android:layout_marginTop="15px"
+                android:scaleType="fitCenter"
+                android:background="@color/color393939"
+                ></ImageView>
+            <View
+                android:id = "@+id/v_picture_6"
+                android:layout_width="79px"
+                android:layout_height="79px"
+                android:layout_marginLeft="580px"
+                android:layout_marginTop="15px"
+                android:background="@drawable/shape_26"
+                ></View>
+            <View
+                android:id = "@+id/v_size"
+                android:layout_width="75px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="664px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_size"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="677px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_edit_pictures_size"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_size"
+                android:layout_width="75px"
+                android:layout_height="52px"
+                android:layout_marginLeft="664px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "尺寸"
+                ></TextView>
+
+            <View
+                android:id = "@+id/v_delete"
+                android:layout_width="75px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="740px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_delete"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="757px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+                android:src = "@mipmap/icon_edit_pictures_delete"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_delete"
+                android:layout_width="75px"
+                android:layout_height="52px"
+                android:layout_marginLeft="740px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "删除"
+                ></TextView>
+
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_manu_options_type"
+            android:layout_width="1280px"
+            android:layout_height="110px"
+            android:contentDescription="手动修图操作项"
+            >
+            <View
+                android:id = "@+id/v_jiaozhen"
+                android:layout_width="86px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="830px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_jiaozhen"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="853px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_jiaozhen"
+                android:layout_width="86px"
+                android:layout_height="52px"
+                android:layout_marginLeft="830px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/color00BABA"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "矫正"
+                ></TextView>
+
+            <View
+                android:id = "@+id/v_cut"
+                android:layout_width="86px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="916px"
+
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_cut"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="939px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_cut"
+                android:layout_width="86px"
+                android:layout_height="52px"
+                android:layout_marginLeft="916px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "裁剪"
+                ></TextView>
+            <View
+                android:id = "@+id/v_tiaose"
+                android:layout_width="86px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="1002px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_tiaose"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="1025px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_tiaose"
+                android:layout_width="86px"
+                android:layout_height="52px"
+                android:layout_marginLeft="1002px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "调色"
+                ></TextView>
+            <View
+                android:id = "@+id/v_tumo"
+                android:layout_width="86px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="1088px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_tumo"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="1111px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_tumo"
+                android:layout_width="86px"
+                android:layout_height="52px"
+                android:layout_marginLeft="1088px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "涂抹"
+                ></TextView>
+            <View
+                android:id = "@+id/v_yinyangse"
+                android:layout_width="86px"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="1174px"
+                ></View>
+            <ImageView
+                android:id = "@+id/iv_yinyangse"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="1197px"
+                android:layout_marginTop="22px"
+                android:scaleType="fitXY"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_yinyangse"
+                android:layout_width="86px"
+                android:layout_height="52px"
+                android:layout_marginLeft="1174px"
+                android:layout_marginTop="58px"
+                android:textColor="@color/colorFFFFFF"
+                android:textSize="20px"
+                android:gravity="center"
+                android:text = "阴阳色"
+                ></TextView>
+        </FrameLayout>
+        <FrameLayout
+            android:id ="@+id/frame_options"
+            android:layout_width="1280px"
+            android:layout_height="120px"
+            android:layout_marginTop="110px"
+            >
+            <include layout = "@layout/layout_fix_options_auto"></include>
+            <include layout = "@layout/layout_fix_options_manu"></include>
+        </FrameLayout>
+        <FrameLayout
+            android:id = "@+id/frame_auto_fix_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id = "@+id/iv_auto_fix_hint"
+                android:layout_width="257px"
+                android:layout_height="45px"
+                android:layout_marginLeft="522px"
+                android:layout_marginTop="102px"
+                android:src = "@mipmap/b_icon_jiaozhen_hint"
+                ></ImageView>
+            <TextView
+                android:id = "@+id/tv_auto_fix_hint"
+                android:layout_width="257px"
+                android:layout_height="34px"
+                android:layout_marginLeft="522px"
+                android:layout_marginTop="102px"
+                android:gravity="center"
+                android:text = "@string/auto_fix_hint"
+                android:textSize="13px"
+                android:textColor="@color/colorFFFFFF"
+                ></TextView>
+        </FrameLayout>
+        <FrameLayout
+            android:id ="@+id/frame_auto_and_manu"
+            android:layout_width="1280px"
+            android:layout_height="60px"
+            android:layout_marginTop="230px"
+            android:background="@color/color000000"
+            >
+            <TextView
+                android:id = "@+id/tv_auto_deal"
+                android:layout_width="170px"
+                android:layout_height="50px"
+                android:layout_marginLeft="470px"
+                android:text = "自动修图"
+                android:textSize="22px"
+                android:textColor = "@color/colorFFFFFF"
+                android:gravity="center"
+                ></TextView>
+            <View
+                android:id = "@+id/v_auto_line"
+                android:layout_width="64px"
+                android:layout_height="4px"
+                android:layout_marginLeft="523px"
+                android:layout_marginTop="50px"
+                android:background="@color/colorFFFFFF"
+                ></View>
+            <TextView
+                android:id = "@+id/tv_manu_deal"
+                android:layout_width="170px"
+                android:layout_height="50px"
+                android:layout_marginLeft="640px"
+                android:text = "手动修图"
+                android:textSize="22px"
+                android:textColor = "@color/colorFFFFFF"
+                android:gravity="center"
+                ></TextView>
+            <View
+                android:id ="@+id/v_manu_line"
+                android:layout_width="64px"
+                android:layout_height="4px"
+                android:layout_marginLeft="693px"
+                android:layout_marginTop="50px"
+                android:background="@color/colorFFFFFF"
+                ></View>
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

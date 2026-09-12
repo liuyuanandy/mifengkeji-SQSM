@@ -1,0 +1,7 @@
+1.gradle 使用gradle-wrapper.properties 中设置的版本
+2.ndk使用sdk下的最新ndk
+3.如果找不到toolchains里的东西，下在android-ndk-r16b-windows-x86_64.zip
+    下载地址：
+    a.https://developer.android.google.cn/ndk/downloads/(需翻墙)
+    b.https://github.com/android/ndk/wiki/Unsupported-Downloads(需翻墙，推荐使用这个链接)
+4.注意 gradle版本和gradle 插件版本要对应。

@@ -1,0 +1,157 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 35
+    namespace "com.beeinc.SQSB"
+    defaultConfig {
+
+        applicationId "com.beeinc.SQSB"
+        minSdkVersion 21
+        targetSdkVersion 35
+        ndkVersion "29.0.14206865"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    flavorDimensions "color"
+    productFlavors {
+        xiaomi {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        huawei {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        }
+        oppo {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+        }
+        samsung {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "samsung"]
+        }
+        vivo {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+        }
+        meizu {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+        }
+        chuizi {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chuizi"]
+        }
+        nubiya {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "nubiya"]
+        }
+        qh360 {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
+        }
+        leshi {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
+        }
+        jinli {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinli"]
+        }
+        yingyongbao {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"]
+        }
+        ali {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
+        }
+        anzhi {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhi"]
+        }
+        woshangdian {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "woshangdian"]
+        }
+        lianxiang {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "lianxiang"]
+        }
+        zhongguoyidong {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zhongguoyidong"]
+        }
+        zhongguodianxin {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zhongguodianxin"]
+        }
+        OperaMobileStore {
+            dimension "color"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "OperaMobileStore"]
+        }
+    }
+    android.buildFeatures.buildConfig true
+    lint {
+        abortOnError false // ✅ correct place
+        baseline = file("lint-baseline.xml") // optional
+    }
+    signingConfigs {
+        //正式签名
+        debug {
+            storeFile file('../sqsb.keystore')//签名文件路径
+            storePassword "123456"
+            keyAlias "sqsb"
+            keyPassword "123456"  //签名密码
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            storeFile file('../sqsb.keystore')//签名文件路径
+            storePassword "123456"
+            keyAlias "sqsb"
+            keyPassword "123456"  //签名密码
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        debug {
+            println("====== buildTypes.debug ======")
+            buildConfigField("boolean", "LOG_DEBUG", "true");       //网络请求是否开启日志模式
+            //内网
+            buildConfigField("String", "BASE_URL", "\"http://192.168.32.26:10002/\"");
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField("boolean", "LOG_DEBUG", "false");       //网络请求是否开启日志模式
+            buildConfigField("String", "BASE_URL", "\"http://192.168.32.26:10002/\"");
+            buildConfigField("String", "BASE_SOCKET", "\"192.168.32.26\"");
+            signingConfig signingConfigs.release
+            // 自定义输出配置
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "beenic_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                }
+            }
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation project(':album')
+    implementation project(':okhttp')
+    implementation project(':mylibrary')
+    implementation project( ':myaars:opencv-release')
+}

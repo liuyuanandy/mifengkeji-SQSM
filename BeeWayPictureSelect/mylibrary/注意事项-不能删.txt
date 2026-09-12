@@ -1,0 +1,7 @@
+1.删除classes.jar 中的 android-support-multidex.version.txt
+2.删除classes.jar 中的 BuildConfig.class
+3.删除libs中的 classes.jar
+4.解压aar包 复制/res/xml/ 下的文件到根目录下的/xml目录
+
+
+lib包名称为 mainlib.aar;mylibrary.aar;album.aar

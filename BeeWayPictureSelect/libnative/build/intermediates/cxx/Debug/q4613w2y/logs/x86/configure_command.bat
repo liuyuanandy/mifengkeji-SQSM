@@ -1,0 +1,21 @@
+@echo off
+"E:\\android\\Sdk\\cmake\\3.22.1\\bin\\cmake.exe" ^
+  "-HD:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\jni" ^
+  "-DCMAKE_SYSTEM_NAME=Android" ^
+  "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" ^
+  "-DCMAKE_SYSTEM_VERSION=21" ^
+  "-DANDROID_PLATFORM=android-21" ^
+  "-DANDROID_ABI=x86" ^
+  "-DCMAKE_ANDROID_ARCH_ABI=x86" ^
+  "-DANDROID_NDK=E:\\android\\Sdk\\ndk\\29.0.14206865" ^
+  "-DCMAKE_ANDROID_NDK=E:\\android\\Sdk\\ndk\\29.0.14206865" ^
+  "-DCMAKE_TOOLCHAIN_FILE=E:\\android\\Sdk\\ndk\\29.0.14206865\\build\\cmake\\android.toolchain.cmake" ^
+  "-DCMAKE_MAKE_PROGRAM=E:\\android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe" ^
+  "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\build\\intermediates\\cxx\\Debug\\q4613w2y\\obj\\x86" ^
+  "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=D:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\build\\intermediates\\cxx\\Debug\\q4613w2y\\obj\\x86" ^
+  "-DCMAKE_BUILD_TYPE=Debug" ^
+  "-BD:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\BeeWayPictureSelect\\libnative\\.cxx\\Debug\\q4613w2y\\x86" ^
+  -GNinja ^
+  "-DOpenCV_DIR=D:\\BaiduNetdiskDownload\\beeway company comptuer projects\\shiquanshimei\\shiquanshimei\\sdk/native/jni" ^
+  "-DANDROID_TOOLCHAIN=clang" ^
+  "-DANDROID_STL=c++_shared"
