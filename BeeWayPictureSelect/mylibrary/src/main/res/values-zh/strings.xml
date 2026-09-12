@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">石全石美</string>
+    <string name = "cut_hint_title">拖动四个角对图片进行矫正或裁切</string>
+    <string name = "cut_hint_desc">矫正：当图片中的石材处于矮斜状态时，可用矫正对其调整。裁切：通过裁切，切掉图片中多余部分</string>
+    <string name="btn_plus">+</string>
+
+    <string name="title_camera">Camera</string>
+    <string name="menu_camera_image">Image</string>
+    <string name="menu_camera_video">Video</string>
+
+    <string name="title_image_select">Select image</string>
+    <string name="menu_image_select">Image</string>
+
+    <string name="title_video_select">Select video</string>
+    <string name="menu_video_select">Video</string>
+
+    <string name="title_album_select">Media Album</string>
+    <string name="menu_album_select">Album</string>
+
+    <string name="title_gallery">Gallery</string>
+
+    <string name="menu_preview">Gallery</string>
+    <string name="btn_gallery_preview">Preview Network Image</string>
+    <string name="checkable">Checkable Options</string>
+    <string name="canceled">Canceled</string>
+    <string name="no_selected">Please select, first.</string>
+
+    <string name = "errcode_success">分享成功</string>
+    <string name = "errcode_cancel">分享已取消</string>
+    <string name = "errcode_deny">分享被拒绝</string>
+    <string name = "errcode_unsupported">当前版本不支持</string>
+    <string name = "errcode_unknown">位置错误</string>
+    <string name = "auto_fix_hint">自动：倾斜矫正、去除遮挡物、修复色差</string>
+    <string name = "jiaozheng_hint_1">拖动4个圆点,对齐石材边缘!</string>
+    <string name = "jiaozheng_hint_2">完成对齐后,点击执行矫正!</string>
+    <string name = "jiaozheng_hint_3">矫正完成!</string>
+    <string name = "caijian_hint_1">拖动4条边,选取裁剪区域!</string>
+    <string name = "caijian_hint_2">选取区域后,点击执行裁剪!</string>
+    <string name = "caijian_hint_3">裁剪完成！</string>
+    <string name = "functiton_none">该功能暂未开放</string>
+    <string name = "cancel">取消</string>
+    <string name = "sure">确定</string>
+
+    <string name = "rotate">旋转</string>
+    <string name = "saved">保存成功</string>
+    <string name = "save_to_album">保存到相册</string>
+    <string name = "share">分享</string>
+    <string name = "retake">重拍</string>
+    <string name = "preview">预览</string>
+    <string name = "apply">应用</string>
+    <string name = "also_save_to_album">同时保存到相册</string>
+    <string name = "product_width">产品宽度:</string>
+    <string name = "product_height">产品高度:</string>
+    <string name = "example"> 列:1000mm</string>
+    <string name = "return_to">返  回</string>
+    <string name = "import_to_app">导入软件</string>
+    <string name = "delete">删除</string>
+    <string name = "correction">矫正</string>
+    <string name = "auto_enhancing">一  键  修  图</string>
+    <string name = "auto_enhance">自动修图</string>
+    <string name = "manual_edit">手动修图</string>
+    <string name = "production_information">产品信息</string>
+    <string name = "name">名称</string>
+    <string name = "name_hint">石材 </string>
+
+    <string name = "type">分类</string>
+    <string name = "type_hint">分类</string>
+
+    <string name = "width">宽度</string>
+    <string name = "height">高度</string>
+    <string name = "enhancing">修图中...</string>
+    <string name = "please_select_an_image">请选择图片</string>
+    <string name = "photo_enhanced">修图完成</string>
+    <string name = "undo">撤销</string>
+    <string name = "enhancing_failed">修图失败</string>
+    <string name = "stones_not_detected">图片未识别出石材</string>
+    <string name = "crop">裁剪</string>
+    <string name = "tone">调色</string>
+    <string name = "erase">涂抹</string>
+    <string name = "shade">阴阳色</string>
+    <string name = "apply_correction">执行矫正</string>
+    <string name = "apply_cutting">执行裁剪</string>
+    <string name = "caution">提示</string>
+    <string name = "give_up_photo_eidting">是否要放弃对图片的修改?</string>
+    <string name = "give_up">放弃</string>
+    <string name = "not_now">取消</string>
+    <string name = "please_enable_location_service">请开启位置服务</string>
+    <string name = "press_again_to_exit_stone_idea">再按一次退出石壹</string>
+    <string name = "please_select_always_allow">请选择\'始终允许\'，以获取更好的位置服务</string>
+    <string name = "please_open_camera_permissions">请打开相机权限</string>
+    <string name = "camera_permission_disabled">相机权限已禁用</string>
+    <string name = "please_open_storage_permissions">请打开存储权限</string>
+    <string name = "storage_permissions_disabled">存储权限已禁用</string>
+    <string name = "please_open_location_permissions">请打开位置权限</string>
+    <string name = "location_permissions_disabled">位置权限已禁用</string>
+    <string name = "you_can_only_select_up">最多只能选择6张</string>
+
+</resources>
