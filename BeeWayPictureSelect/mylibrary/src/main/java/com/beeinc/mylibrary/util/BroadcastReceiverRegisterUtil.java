@@ -11,9 +11,15 @@ import android.content.IntentFilter;
 import android.os.Build.VERSION;
 
 public class BroadcastReceiverRegisterUtil {
-    public static void registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, int IS_RECEIVER_EXPORTED) {
-        if (VERSION.SDK_INT >= 26) {
-            context.registerReceiver(receiver, filter, IS_RECEIVER_EXPORTED);
+    public static void registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, boolean IS_RECEIVER_EXPORTED) {
+        if (VERSION.SDK_INT >= 33) {
+            if(IS_RECEIVER_EXPORTED){
+                context.registerReceiver(receiver, filter,Context.RECEIVER_EXPORTED);
+
+            }else{
+                context.registerReceiver(receiver, filter,Context.RECEIVER_NOT_EXPORTED);
+
+            }
         } else {
             context.registerReceiver(receiver, filter);
         }

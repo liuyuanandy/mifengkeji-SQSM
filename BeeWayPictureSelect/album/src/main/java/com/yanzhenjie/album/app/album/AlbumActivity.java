@@ -142,10 +142,16 @@ public class AlbumActivity extends BaseActivity implements
         mView.setCompleteDisplay(false);
         mView.setLoadingDisplay(true);
         findViewById(R.id.re_image_option).setVisibility(View.GONE);
-        requestPermission(PERMISSION_STORAGE, CODE_PERMISSION_STORAGE);
+        if(getIsHigherThanAndroidTIRAMISU()){
+            requestPermission(PERMISSION_MEDIA, CODE_PERMISSION_STORAGE);
+        }else{
+            requestPermission(PERMISSION_STORAGE, CODE_PERMISSION_STORAGE);
+        }
         hideNavigatonButton();
     }
-
+    public boolean getIsHigherThanAndroidTIRAMISU() {
+        return Build.VERSION.SDK_INT >= 33;
+    }
     private void initializeArgument() {
         Bundle argument = getIntent().getExtras();
         assert argument != null;

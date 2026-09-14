@@ -366,7 +366,7 @@ public class UploadActivity extends Activity {
         filter.addAction("com.beeinc.album.takpicture");
         filter.addAction("com.beeinc.album.takpicture.finish");
         filter.addAction("com.beeinc.album.takpicture.album");
-        BroadcastReceiverRegisterUtil.registerReceiver(this, this.receiver, filter, 2);
+        BroadcastReceiverRegisterUtil.registerReceiver(this, this.receiver, filter, true);
     }
     private void initUploadFiles(ArrayList<UploadFile> uploadFiles){
         addViews(uploadFiles,true);

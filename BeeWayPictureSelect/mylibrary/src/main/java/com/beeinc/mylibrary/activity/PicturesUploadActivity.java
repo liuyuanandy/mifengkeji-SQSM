@@ -1345,7 +1345,7 @@ public class PicturesUploadActivity extends FragmentActivity {
         filter.addAction("com.beeinc.album.takpicture");
         filter.addAction("com.beeinc.album.takpicture.finish");
         filter.addAction("com.beeinc.album.takpicture.album");
-        BroadcastReceiverRegisterUtil.registerReceiver(this,receiver, filter,RECEIVER_EXPORTED);
+        BroadcastReceiverRegisterUtil.registerReceiver(this,receiver, filter,true);
     }
 
     private void setCurrentUploadFile(UploadFile currentUploadFile){

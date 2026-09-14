@@ -158,14 +158,13 @@ public class PermissionUtil {
     /***
      * 权限
      * @param requestCode
-     * @param permissions
      * @param grantResults
      *  // 用户权限 申请 的回调方法
      * @Override
      * public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
      * super.onRequestPermissionsResult(requestCode, permissions, grantResults);
      */
-    public static void onRequestPermissionsResult(Activity context, int requestCode, String[] permissions, int[] grantResults, TYPE type, PermissionGrantResutListener listener) {
+    public static void onRequestPermissionsResult(Activity context, int requestCode, int[] grantResults, TYPE type, PermissionGrantResutListener listener) {
         int code = getRequestCode(type);
         if (requestCode == code && Build.VERSION.SDK_INT >= 23) {
             Log.e("--------->", "myreQuestCode = " + code);

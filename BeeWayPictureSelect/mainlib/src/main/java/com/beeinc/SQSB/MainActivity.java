@@ -532,10 +532,10 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 }
             }
         };
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.CAMERA, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.STORAGE, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.POST_NOTIFICATIONS, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.CAMERA, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.STORAGE, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.POST_NOTIFICATIONS, listener);
 
 
     }
@@ -618,7 +618,7 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
         filter.addAction("com.beeinc.album.takpicture.album");
         filter.addAction("com.beeinc.select.video");
         filter.addAction("com.beeinc.select.phone.album");
-        BroadcastReceiverRegisterUtil.registerReceiver(this, this.receiver, filter, 2);
+        BroadcastReceiverRegisterUtil.registerReceiver(this, this.receiver, filter, true);
     }
     public void onDestroy(){
         super.onDestroy();
