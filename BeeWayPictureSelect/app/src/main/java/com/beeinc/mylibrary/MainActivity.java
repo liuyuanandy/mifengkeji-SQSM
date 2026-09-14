@@ -655,21 +655,6 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         }
         getPermissionOfCamera();
     }
-    private boolean judgeStoragePermission() {
-        boolean isStorage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
-        boolean isMediaPermission = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS);
-        if (SystemUtil.getIsHigherThanAndroidTIRAMISU()) {
-            if (!isMediaPermission) {
-                this.getMediaPermission();
-                return false;
-            }
-        } else if (!isStorage) {
-            this.getPermissionOfStorage();
-            return false;
-        }
-
-        return true;
-    }
     private void getPermissionOfCamera() {
         PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA, new PermissionUtil.RequestPermissionListener()
         {
