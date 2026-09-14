@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -123,7 +124,7 @@ public class PermissionUtil {
         }
 
     }
-    private static void startRequestPermission(Activity context, TYPE type) {
+    public static void startRequestPermission(Activity context, TYPE type) {
         shouldShowRequestPermissionRationale = shouldShowRequestPermissionRationale(context, type);
         String[] permissions = getPerMissions(type);
         ActivityCompat.requestPermissions(context, permissions, getRequestCode(type));
@@ -158,14 +159,13 @@ public class PermissionUtil {
     /***
      * 权限
      * @param requestCode
-     * @param permissions
      * @param grantResults
      *  // 用户权限 申请 的回调方法
      * @Override
      * public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
      * super.onRequestPermissionsResult(requestCode, permissions, grantResults);
      */
-    public static void onRequestPermissionsResult(Activity context, int requestCode, String[] permissions, int[] grantResults, TYPE type, PermissionGrantResutListener listener) {
+    public static void onRequestPermissionsResult(Activity context, int requestCode,int[] grantResults, TYPE type, PermissionGrantResutListener listener) {
         int code = getRequestCode(type);
         if (requestCode == code && Build.VERSION.SDK_INT >= 23) {
             Log.e("--------->", "myreQuestCode = " + code);
@@ -278,6 +278,29 @@ public class PermissionUtil {
      * @return
      */
     public static boolean shouldShowRequestPermissionRationale(Activity context, TYPE type){
+        String[] permissions = getPerMissions(type);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.shouldShowRequestPermissionRationale(permissions[0]);
+        }
+        return false;
+    }
+    /**
+     * 手机是否开启位置服务，如果没有开启那么所有app将不能使用定位功能
+     */
+    public static boolean isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
+     * @return
+     */
+    public static boolean getIsCanShowRequesPermissionRationable(Activity context, TYPE type){
         String[] permissions = getPerMissions(type);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return context.shouldShowRequestPermissionRationale(permissions[0]);

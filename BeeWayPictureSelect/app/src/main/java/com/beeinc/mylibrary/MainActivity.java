@@ -448,11 +448,16 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                     }
                 }
             }
+
+            @Override
+            public void grantFailedAndNotAllowRequest(PermissionUtil.TYPE var1) {
+
+            }
         };
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.CAMERA,listener);
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.STORAGE,listener);
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION,listener);
-        PermissionUtil.onRequestPermissionsResult(requestCode,permissions,grantResults, PermissionUtil.TYPE.LOCATION_BACK,listener);
+        PermissionUtil.onRequestPermissionsResult(this,requestCode,grantResults, PermissionUtil.TYPE.CAMERA,listener);
+        PermissionUtil.onRequestPermissionsResult(this,requestCode,grantResults, PermissionUtil.TYPE.STORAGE,listener);
+        PermissionUtil.onRequestPermissionsResult(this,requestCode,grantResults, PermissionUtil.TYPE.LOCATION,listener);
+        PermissionUtil.onRequestPermissionsResult(this,requestCode,grantResults, PermissionUtil.TYPE.LOCATION_BACK,listener);
 
 
     }

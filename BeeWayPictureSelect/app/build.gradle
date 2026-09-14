@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 35
+    compileSdkVersion 37
     namespace "com.beeinc.SQSB"
     defaultConfig {
 
         applicationId "com.beeinc.SQSB"
         minSdkVersion 21
-        targetSdkVersion 35
+        targetSdkVersion 37
         ndkVersion "29.0.14206865"
         versionCode 1
         versionName "1.0"
