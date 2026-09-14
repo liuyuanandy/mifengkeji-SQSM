@@ -486,12 +486,6 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 })
                 .start();
     }
-    private boolean isHavePermission(){
-        boolean storage,camera;
-        storage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
-        camera = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.CAMERA);
-        return storage&&camera;
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -665,12 +659,12 @@ public class MainActivity extends UnityPlayerActivity implements UnityCallNative
                 }
             }
         };
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.CAMERA, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.STORAGE, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.LOCATION, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.LOCATION_BACK, listener);
-        PermissionUtil.onRequestPermissionsResult(this, requestCode, permissions, grantResults, PermissionUtil.TYPE.POST_NOTIFICATIONS, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.CAMERA, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.STORAGE, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.LOCATION, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.LOCATION_BACK, listener);
+        PermissionUtil.onRequestPermissionsResult(this, requestCode, grantResults, PermissionUtil.TYPE.POST_NOTIFICATIONS, listener);
     }
     public void arAction(String kt,String fs){
         this.getPermissionFor = 8;

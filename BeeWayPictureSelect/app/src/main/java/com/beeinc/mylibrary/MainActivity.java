@@ -40,6 +40,7 @@ import com.beeinc.mylibrary.util.FileUtil;
 import com.beeinc.mylibrary.util.LiuhaiScreenJudgeUtil;
 import com.beeinc.mylibrary.util.MimeType;
 import com.beeinc.mylibrary.util.OpenCVUtil;
+import com.beeinc.mylibrary.util.PermissionSharePreference;
 import com.beeinc.mylibrary.util.PermissionUtil;
 import com.beeinc.mylibrary.util.StatusBarUtils;
 import com.beeinc.mylibrary.util.SystemUtil;
@@ -110,6 +111,7 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("-------->","MainActivity onCreate");
+        PermissionSharePreference.init(this);
         setContentView(R.layout.activity_main);
         ScreenUtil.setLayoutNum(this,true);
         Constant.setBaseUrl("https://15ux669634.iask.in/");
@@ -376,10 +378,18 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                 if(permissionObjectDialog!=null){
                     permissionObjectDialog.dismiss();
                 }
+
                 if(type.equals(PermissionUtil.TYPE.CAMERA)){
-                    getPermissionOfStorage();
+                    if(judgeCameraAndStoragePermission()){
+                        if(getCameraAndAlbumPermissionFor==1){//多图上传
+                            GetMultipleAlbumPathV1Implement(multipleAlbumPathInfo.getSaveDir(),multipleAlbumPathInfo.getImageNum() ,multipleAlbumPathInfo.getTypes());
+                        }
+                        if(getCameraAndAlbumPermissionFor==2){//图片裁剪
+                            cutCapture(albumPath);
+                        }
+                    }
                 }
-                if(type.equals(PermissionUtil.TYPE.STORAGE)){
+                if ((type.equals(PermissionUtil.TYPE.STORAGE)) || (type.equals(PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS))) {
                     if(getCameraAndAlbumPermissionFor==1){//多图上传
                         GetMultipleAlbumPathV1Implement(multipleAlbumPathInfo.getSaveDir(),multipleAlbumPathInfo.getImageNum() ,multipleAlbumPathInfo.getTypes());
                     }
@@ -387,6 +397,7 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
                         cutCapture(albumPath);
                     }
                 }
+
                 if(type.equals(PermissionUtil.TYPE.LOCATION)){
                     boolean isAndroid13 = SystemUtil.getIsHigherThanAndroidTIRAMISU();
                     if(isAndroid13){
@@ -644,6 +655,77 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         }
         getPermissionOfCamera();
     }
+    private boolean judgeStoragePermission() {
+        boolean isStorage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
+        boolean isMediaPermission = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS);
+        if (SystemUtil.getIsHigherThanAndroidTIRAMISU()) {
+            if (!isMediaPermission) {
+                this.getMediaPermission();
+                return false;
+            }
+        } else if (!isStorage) {
+            this.getPermissionOfStorage();
+            return false;
+        }
+
+        return true;
+    }
+    private void getPermissionOfCamera() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA, new PermissionUtil.RequestPermissionListener()
+        {
+            public void havePermission() {
+                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
+            }
+
+            public void canRequestPermission()
+            {
+                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 0);
+            }
+
+            public void notAllowRquestAgain()
+            {
+                Toast.makeText(MainActivity.this, "请打开相机权限", Toast.LENGTH_LONG).show();
+                PermissionUtil.toAppSelfSetting(MainActivity.this);
+            }
+        });
+    }
+
+    private void getPermissionOfStorage() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.STORAGE, new PermissionUtil.RequestPermissionListener()
+        {
+            public void havePermission() {
+                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
+            }
+
+            public void canRequestPermission()
+            {
+                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 2);
+            }
+
+            public void notAllowRquestAgain()
+            {
+                Toast.makeText(MainActivity.this, "请打开存储权限", Toast.LENGTH_LONG).show();
+                PermissionUtil.toAppSelfSetting(MainActivity.this);
+            } } );
+    }
+    private void getMediaPermission() {
+        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS, new PermissionUtil.RequestPermissionListener()
+        {
+            public void havePermission() {
+                Toast.makeText(MainActivity.this, "您已获得此权限", Toast.LENGTH_LONG).show();
+            }
+
+            public void canRequestPermission()
+            {
+                permissionObjectDialog =DialogUtil.showPermissionObjectiveDialog(MainActivity.this, 1);
+            }
+
+            public void notAllowRquestAgain()
+            {
+                Toast.makeText(MainActivity.this, "请打开照片和视频权限", Toast.LENGTH_LONG).show();
+                PermissionUtil.toAppSelfSetting(MainActivity.this);
+            } } );
+    }
     private void cutCapture(String albumPath){
         if(!albumPath.endsWith(File.separator)){
             albumPath = albumPath+File.separator;
@@ -654,21 +736,40 @@ public class MainActivity extends FragmentActivity implements UnityCallNative {
         cut_capture.setClass(MainActivity.this, CaptureActivity.class);
         startActivity(cut_capture);
     }
-    private void getPermissionOfCamera(){
-        permissionObjectDialog = DialogUtil.showPermissionObjectiveDialog(this,0);
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.CAMERA);
-    }
-    private void getPermissionOfStorage(){
-        permissionObjectDialog = DialogUtil.showPermissionObjectiveDialog(this,2);
-        PermissionUtil.startRequestPermission(this, PermissionUtil.TYPE.STORAGE);
+    private boolean judgeCameraAndStoragePermission() {
+        boolean isCamera = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.CAMERA);
+        boolean isStorage = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.STORAGE);
+        boolean isMediaPermission = PermissionUtil.isHavePermission(this, PermissionUtil.TYPE.ANDROID_13_MEDIA_IMAGES_AND_VIDEOS);
+        if (!isCamera) {
+            this.getPermissionOfCamera();
+            return false;
+        } else {
+            if (SystemUtil.getIsHigherThanAndroidTIRAMISU()) {
+                if (!isMediaPermission) {
+                    this.getMediaPermission();
+                    return false;
+                }
+            } else if (!isStorage) {
+                this.getPermissionOfStorage();
+                return false;
+            }
+
+            return true;
+        }
     }
     @Override
     public void GetMultipleAlbumPath(String saveDir, int imageNum, String types) {
         multipleAlbumPathInfo = new GetMultipleAlbumPathInfo(saveDir,imageNum,types);
         //获取权限
         getCameraAndAlbumPermissionFor = 1;
-        getPermissionOfCamera();
-//        GetMultipleAlbumPathV1Implement(saveDir,imageNum,types);
+        if(judgeCameraAndStoragePermission()){
+            if(getCameraAndAlbumPermissionFor==1){//多图上传
+                GetMultipleAlbumPathV1Implement(multipleAlbumPathInfo.getSaveDir(),multipleAlbumPathInfo.getImageNum() ,multipleAlbumPathInfo.getTypes());
+            }
+            if(getCameraAndAlbumPermissionFor==2){//图片裁剪
+                cutCapture(albumPath);
+            }
+        }
     }
     private void GetMultipleAlbumPathV1Implement(final String saveDir, final int imageNum, final String types) {
         this.saveDirUpload = saveDir;
